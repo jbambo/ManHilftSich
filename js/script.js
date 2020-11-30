@@ -42,7 +42,7 @@ function saveDB() {
 }
 
 function goStart() {
-    window.open("mhs-1.php", "_self");
+    window.open("index.php", "_self");
 }
 
 function goSaved() {
