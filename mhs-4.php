@@ -6,14 +6,14 @@
 
 </head>
 <body>
-<div class="container" style="font-size: 45px">
-    <p class="tightwrap">
+<header>
+    <p class="tightwrap font45 ">
         Man Hilft Sich Portal
     </p>
-</div>
+</header>
 <?php include "mhs-menu.html"; ?>
 
-<p class='flex-center font45'>Alle Hilfesuchenden:</p>
+<p class='flex-center font45 mar10'>Alle Hilfesuchenden:</p>
 <div class="flex-wrap-col">
     <?php
     $data = "alleHilfesuchenden.txt";

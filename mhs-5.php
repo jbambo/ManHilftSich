@@ -5,13 +5,12 @@
     <link href="styles/style_mhs.css" rel="stylesheet">
 </head>
 <body>
-<div class="container" style="font-size: 45px">
-    <p class="tightwrap">
+<header>
+    <p class="tightwrap font45 ">
         Man Hilft Sich Portal
     </p>
-</div>
+</header>
 <?php include "mhs-menu.html"; ?>
-
 
 <?php
 $user = "";
@@ -21,7 +20,7 @@ if (isset($_GET["user"])) {
     ?>
     <p class="tightwrap back-lime margin-left-20pr font45">Karteikarte von: </p>
     <div class="margin-left-20pr">
-        <table class=" neat font45">
+        <table class="font45">
             <tr>
                 <td>Vorname:</td>
                 <td><?php echo $arrayOfData[0] ?><br></td>

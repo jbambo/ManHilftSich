@@ -31,7 +31,12 @@ h1 {
     font-size: 35px;
 
 }
-
+#nav a,a:link{
+    font-size: 35px;
+    text-align: center;
+    padding: 10px;
+    display: block;
+}
 #nav ul {
     list-style-type: none;
     display: block;
@@ -43,20 +48,11 @@ h1 {
     padding: 10px;
 }
 
-#nav a:link {
-    text-align: center;
-    padding: 10px;
-    display: inline-block;
-    margin: auto;
-    width: 100%;
-
-}
-
 #nav a:hover {
     color: #000000;
     background-color: rgba(100%, 100%, 100%, 0.6);
     transition: 1.0s;
-    font-size: 40px;
+    font-size: 39px;
 }
 
 
@@ -73,6 +69,7 @@ option {
 a:link {
     text-decoration: none;
     color: #000000;
+    font-size: unset;
 }
 
 a:visited {

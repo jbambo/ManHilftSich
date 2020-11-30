@@ -1,5 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <link href="styles/style_mhs.css" rel="stylesheet">
+</head>
+<body>
+
 <?php
-header('Content-Type: application/json; charset=utf-8');
+//header('Content-Type: application/json; charset=utf-8');
 $verbindung = include("mhs-db.php");
 $table = "test";
 $userData = array(); //array for arrays of user data
@@ -24,3 +33,8 @@ if ($result) {
 mysqli_close($verbindung);
 $json = json_encode($userData);
 print($json);
+?>
+
+<script src="js/script.js"></script>
+</body>
+</html>
