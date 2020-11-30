@@ -1,0 +1,242 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+
+    background-image: linear-gradient(10deg, rgba(12, 105, 32, 1) 0%, rgba(9, 121, 46, 1) 27%, rgba(3, 199, 167, 1) 69%, rgba(0, 255, 213, 1) 100%);
+    background-size: auto;
+    background-attachment: fixed;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+header {
+    text-align: center;
+    margin: 50px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+#mapid {
+    height: 75%;
+    width: 60%;
+    margin-left: 15%;
+}
+
+#nav {
+    font-size: 35px;
+
+}
+
+#nav ul {
+    list-style-type: none;
+    display: block;
+}
+
+#nav li {
+    display: block;
+    margin: 5px;
+    padding: 10px;
+}
+
+#nav a:link {
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    margin: auto;
+    width: 100%;
+
+}
+
+#nav a:hover {
+    color: #000000;
+    background-color: rgba(100%, 100%, 100%, 0.6);
+    transition: 1.0s;
+    font-size: 40px;
+}
+
+
+option {
+    font-family: Impact, Charcoal, sans-serif;
+
+}
+
+.impact {
+    font-family: Impact, Charcoal, sans-serif;
+
+}
+
+a:link {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:visited {
+    color: #000000;
+}
+
+a:hover {
+    color: #8b0000;
+}
+
+a:active {
+    color: #ffffff;
+}
+
+input.submit {
+    font-family: Impact, Charcoal, sans-serif;
+    margin-top: 5px;
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+}
+
+input.submit:hover {
+    background-color: rgba(100%, 100%, 100%, 0.6);
+}
+
+input {
+    background-color: transparent;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+input:hover {
+    background-color: rgba(100%, 100%, 100%, 0.6);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.flex-wrap-col {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    flex-wrap: wrap;
+    margin-left: 15%;
+    width: 85%;
+    height: 200%;
+
+}
+
+.flex-center-row {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: row;
+    text-align: center;
+}
+
+.flex-right {
+    display: flex;
+    justify-content: right;
+    flex-direction: column;
+}
+
+.flex-left {
+    display: flex;
+    justify-content: left;
+    width: 40%;
+    background-color: rgba(100%, 100%, 100%, 0.6);
+}
+
+.back-lime {
+    /*background-color: #73b832;*/
+    background-color: rgba(115, 184, 50, 0.8);
+
+}
+
+.border {
+    border: 10px solid rgb(34, 139, 34);
+}
+
+pre {
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+.back-red {
+    background-color: rgba(100%, 0%, 0%, 0.8);
+}
+
+.tightwrap {
+    display: inline-flex; /* keep the background color wrapped tight */
+    padding: 5px;
+    background-color: #73b832;
+
+}
+
+.container {
+    text-align: center;
+}
+
+.font30 {
+    font-size: 30px;
+}
+
+.font45 {
+    font-size: 45px;
+}
+
+.font20 {
+    font-size: 20px;
+}
+
+.menu {
+    height: 100%;
+    width: 15%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #73b832;
+    overflow-x: hidden;
+}
+
+.lime {
+    background-color: #73b832;
+}
+
+.mar10 {
+    margin: 10px;
+}
+
+.pad10 {
+    padding: 10px;
+}
+
+.margin-left-15pr {
+    margin-left: 15%;
+}
+
+.margin-left-20pr {
+    margin-left: 20%;
+}
+
+table, td, tr {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background-color: #73b832;
+}
+
+td {
+    text-align: left;
+    padding: 10px;
+}
+
+.width22pr {
+    width: 22%;
+}
