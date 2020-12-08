@@ -5,7 +5,7 @@ session_start()
 <head>
     <meta charset="UTF-8">
     <title>Man Hilft Sich</title>
-    <link href="styles/style_mhs.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">

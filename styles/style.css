@@ -1,88 +1,111 @@
+@font-face {
+    font-family: 'mhs_font';
+    src: url('../font/BebasNeuePro-Book.eot');
+    src: local('Bebas Neue Pro Book'), local('BebasNeuePro-Book'),
+    url('../font/BebasNeuePro-Book.eot?#iefix') format('embedded-opentype'),
+    url('../font/BebasNeuePro-Book.woff2') format('woff2'),
+    url('../font/BebasNeuePro-Book.woff') format('woff'),
+    url('../font/BebasNeuePro-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
-
-html {
-
-    background-image: linear-gradient(10deg, rgba(12, 105, 32, 1) 0%, rgba(9, 121, 46, 1) 27%, rgba(3, 199, 167, 1) 69%, rgba(0, 255, 213, 1) 100%);
-    background-size: auto;
-    background-attachment: fixed;
-    font-family: Impact, Charcoal, sans-serif;
-}
-
-header {
-    text-align: center;
-    margin: 50px;
-}
-
-h1 {
-    font-size: 50px;
-}
-
-#mapid {
-    height: 75%;
-    width: 60%;
-    margin-left: 15%;
-}
-
-#nav {
+    font-family: "mhs_font";
+    border-radius: 10px;
     font-size: 35px;
-
-}
-#nav a,a:link{
-    font-size: 35px;
-    text-align: center;
-    padding: 10px;
-    display: block;
-}
-#nav ul {
-    list-style-type: none;
-    display: block;
 }
 
-#nav li {
-    display: block;
-    margin: 5px;
-    padding: 10px;
-}
-
-#nav a:hover {
-    color: #000000;
-    background-color: rgba(100%, 100%, 100%, 0.6);
-    transition: 1.0s;
-    font-size: 39px;
-}
-
-
-option {
-    font-family: Impact, Charcoal, sans-serif;
-
-}
-
-.impact {
-    font-family: Impact, Charcoal, sans-serif;
-
-}
-
-a:link {
+a {
     text-decoration: none;
     color: #000000;
-    font-size: unset;
 }
 
-a:visited {
-    color: #000000;
+.content_max_width {
+    max-width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
 }
 
-a:hover {
-    color: #8b0000;
+/* background for the site*/
+html {
+    background-image: linear-gradient(45deg,
+    rgb(173, 234, 188) 0%,
+    rgb(197, 229, 109) 25%,
+    rgb(240, 129, 245) 50%,
+    rgb(197, 229, 109) 75%,
+    rgb(173, 234, 188) 100%);
+    background-size: auto;
+    background-attachment: fixed;
 }
 
-a:active {
-    color: #ffffff;
+/*menu*/
+
+.menu {
+    height: 100px;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
+
+.menu #logo img {
+    height: 80px;
+}
+
+.menu #logo a {
+    text-align: left;
+}
+
+.menu ul {
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+.menu li {
+    display: inline-block;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+
+}
+
+.menu a:hover {
+    padding: 15px;
+    transform: scale(1.5);
+    transition: 1s;
+    background-color: #999999;
+}
+
+#menu{ /*div for including the menu via php*/
+    height: 100px;
+}
+
+/*end menu*/
+
+/*map div*/
+#mapid{
+    width: 640px;
+    height: 480px;
+    border: 3px solid black;
+    background-color: #999999;
+
+}
+
+
 
 input.submit {
     font-family: Impact, Charcoal, sans-serif;
@@ -192,16 +215,6 @@ pre {
     font-size: 20px;
 }
 
-.menu {
-    height: 100%;
-    width: 15%;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #73b832;
-    overflow-x: hidden;
-}
 
 .lime {
     background-color: #73b832;
@@ -236,4 +249,12 @@ td {
 
 .width22pr {
     width: 22%;
+}
+
+@media screen and (max-width: 768px) {
+    .content_max_width {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
 }

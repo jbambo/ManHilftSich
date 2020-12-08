@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Man Hilft Sich</title>
-    <link href="styles/style_mhs.css" rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -37,14 +37,8 @@ if (isset($_GET["user"])) {
                 <td>Latitude:</td>
                 <td><?php echo $arrayOfData[3] ?></td>
             </tr>
-
-
         </table>
-
-
     </div>
-
-
     <?php
 } else echo "<p class='container font45'>fehler, gehen sie zurück :)</p>";
 

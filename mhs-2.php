@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Man Hilft Sich</title>
-    <link rel="stylesheet" href="styles/style_mhs.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
@@ -43,10 +43,10 @@ if (!(isset($_POST["nn"])) or //check if input is set
     $urgency = htmlspecialchars($_POST["urgency"]);
 
 
-    if ($urgency == 1) $m2 = "not so much";      //assign string to urgency level
-    elseif ($urgency == 2) $m2 = "more urgent";
-    elseif ($urgency == 3) $m2 = "critical";
-    elseif ($urgency == 4) $m2 = "emergency";
+    if ($urgency == 1) $m2 = "nicht dringeng";      //assign string to urgency level
+    elseif ($urgency == 2) $m2 = "dringend";
+    elseif ($urgency == 3) $m2 = "jetzt gerade";
+    elseif ($urgency == 4) $m2 = "notfall";
 
     ?>
     <div class="flex-center">
@@ -81,7 +81,7 @@ if (!(isset($_POST["nn"])) or //check if input is set
                 </tr>
                 <tr>
                     <td>
-                        <button class="font30 back-lime" id="wrongBtt" onclick="goBack()">Das Stimmt nicht,<br>Zurück!
+                        <button class="font30 back-lime" id="wrongBtt" onclick="goStart()">Das Stimmt nicht,<br>Zurück!
                         </button>
                     </td>
                     <td>

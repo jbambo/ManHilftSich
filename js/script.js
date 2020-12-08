@@ -1,3 +1,4 @@
+
 function drawMap() {
     let long = "", lat = "", nname = "", vname = "", category = "", urgency = "";
     urgency = document.getElementById("urgency").value;
@@ -37,28 +38,51 @@ function drawMap() {
     }
 }
 
-function saveDB() {
+function saveDB(vn,nn,lat,lng,category,urgency) {
+    /*let vn = document.getElementById("vn").value;
+    let nn = document.getElementById("nn").value;
+    let lat = document.getElementById("lat").value;
+    let lng = document.getElementById("long").value;
+    let category = document.getElementById("category").value;
+    let urgency = document.getElementById("urgency").value;*/
 
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.open("","mhs-SendData.php",true )
+    xhttp.send(vn,nn,lat,lng,category,urgency);
 }
 
-function goStart() {
-    window.open("mhs-1.php", "_self");
-}
+onload=(function (){ //loop to use ajaxloaddata function every 3 seconds
+   initMap();
+   ajaxLoadData();
+   setInterval(function (){
+       ajaxLoadData();}, 3000);
+});
 
-function goSaved() {
-    window.open("mhs-4.php", "_self");
-}
+function ajaxLoadData(){ //jquery code for getting  data with ajax
+    $.ajax({
+        url: ("mhs-getData.php"),
+        data: {},
+        type: "GET",
+        timeout: 1000,
+        dataType: "json",
+        error: ajaxLoadMhsError,
+        success: ajaxLoadMhsDataSuccess
+    })
 
-function goContact() {
-    window.open("mhs-kontakt.html", "_self");
-}
+};
 
-function goMap() {
-    window.open("mhs_karte.html", "_self");
-}
+function ajaxLoadMhsDataSuccess(myData){
+        console.log(myData);
+        var output ="<p>";
+        myData.forEach(element =>{
+            output+=""+element.vn+ ""+element.nn
+        })
+};
 
+function ajaxLoadMhsError(myData){
 
-
+};
 
 
 
