@@ -17,8 +17,11 @@
 <div id="menu">
     <?php include "mhs-menu.html" ?>
 </div>
+
 <div class="content_max_width">
-    <div class="mar10">
+
+    <div id="parent">
+
         <form action="mhs-2.php" method="post">
             <table>
                 <tr>
@@ -27,15 +30,15 @@
                 </tr>
                 <tr>
                     <td>Nachname:</td>
-                    <td><input  type="text" id="nn" name="nn"><br></td>
+                    <td><input type="text" id="nn" name="nn"><br></td>
                 </tr>
                 <tr>
                     <td>Longitude:</td>
-                    <td><input  type="number" step="0.01" id="long" name="long"></td>
+                    <td><input type="number" step="0.01" id="long" name="long"></td>
                 </tr>
                 <tr>
                     <td>Latitude:</td>
-                    <td><input  type="number" step="0.01" id="lat" name="lat"><br></td>
+                    <td><input type="number" step="0.01" id="lat" name="lat"><br></td>
                 </tr>
                 <tr>
                     <td>Benötigte hilfe:</td>
@@ -44,7 +47,7 @@
                 <tr>
                     <td>Dringlichkeit:</td>
                     <td>
-                        <select  name="urgency" id="urgency" required>
+                        <select name="urgency" id="urgency" required>
                             <option value="1">nicht dringend</option>
                             <option value="2">dringend</option>
                             <option value="3">jetzt gerade</option>
@@ -55,17 +58,19 @@
                 <tr>
                     <td></td>
                     <!--<td><input class="submit tightwrap" type="submit" name="submit" value="SAVE"></td>-->
-                    <td><input  type="button" value="MAP" onclick="drawMap()">
-                        <input  type="submit" name="submit" value="ENTER">
-                        <input  type="reset" value="RESET">
-                        <input  type="button" onclick="saveDB()" value="Send">
+                    <td><input type="button" value="MAP" onclick="drawMap()">
+                        <input type="submit" name="submit" value="ENTER">
+                        <input type="reset" value="RESET">
+                        <input type="button" onclick="saveDB()" value="Send">
 
                     </td>
                 </tr>
             </table>
         </form>
     </div>
-    <div id="mapid" class="mar10"></div>
+    <div class="border mar10">
+        <div id="mapid"></div>
+    </div>
 </div>
 
 <script type="text/javascript" src="js/script.js"></script>
