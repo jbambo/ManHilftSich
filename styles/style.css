@@ -25,7 +25,7 @@ a {
 }
 
 .content_max_width {
-    max-width: 90%;
+    max-width: 95%;
     margin: auto;
     display: flex;
     justify-content: space-evenly;
@@ -101,12 +101,13 @@ html {
 #mapid{
     width: 640px;
     height: 480px;
-    border-radius: unset;
     background-color: #999999;
-
+}
+#mapid *{
+    border-radius: unset;
 }
 
-/*form div*/
+/*form div and forms*/
 #parent{
     margin: 10px;
 }
@@ -118,6 +119,24 @@ html {
     background-color: #999999;
 }
 
+#registerUser.close{
+    display: none;
+}
+#registerUser.open{
+    display: initial;
+}
+#registerHelper.close{
+    display: none;
+}
+#registerHelper.open{
+    display: initial;
+}
+#bossView.close{
+    display: none;
+}
+#bossView.open{
+    display: block;
+}
 
 .flex-center {
     display: flex;
