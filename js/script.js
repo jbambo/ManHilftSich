@@ -160,32 +160,71 @@ function addHelperMarker(jsonData) {
     map.addLayer(markerLayerHelper);
 }
 
-//get location
-let longitude, latitude;
-function getLocation() {
-    let position;
-    switch (role) {
-        case "helper":
-            longitude= document.getElementById("helperLong");
-            latitude=document.getElementById("helperLat");
-            break;
-        case"user":
-            longitude=document.getElementById("userLong");
-            latitude=document.getElementById("userLat");
-            break;
-    }
-
-    if (navigator.geolocation){
-       navigator.geolocation.getCurrentPosition(function inputPosition(){
-           
-        });
-    }else document.getElementById("response").innerHTML="Geolocation not supported";
+function truncateCoords(num) {
+    num = num.toString(); //If it's not already a String
+    num = num.slice(0, (num.indexOf(".")) + 3); //With 3 exposing the hundredths place
+    return Number(num);
 }
 
-//select role function and show the according view for the user
-let role = document.getElementById("role").value;
+//get location function, validating which input field to change w. function setLocation  :)
+function getLocation(token) {
+    let longitude, latitude;
+    switch (token) {
+        case 1:
+            longitude = document.getElementById("helperLong");
+            latitude = document.getElementById("helperLat");
+            setLocation(longitude, latitude);
+            break;
+        case 2:
+            longitude = document.getElementById("userLong");
+            latitude = document.getElementById("userLat");
+            setLocation(longitude, latitude);
+            break;
+    }
+}
+
+//function for setting location
+function setLocation(setLong, setLat) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function inputPosition(position) {
+            setLong.value = truncateCoords(position.coords.longitude);
+            setLat.value = truncateCoords(position.coords.latitude);
+        });
+    } else document.getElementById("response").innerHTML = "Geolocation not supported";
+}
+
+//get coordinates from an address
+function showAddress(){
+    document.getElementById("addressField").className="open";
+}
+function closeAddress(){
+    document.getElementById("addressField").className="close";
+}
+// Instantiate a map and platform object:
+var platform = new H.service.Platform({
+    'apikey': 'dFMgQ8qO0rHnnUtFlYtfCkoPiML3C2AAA14ruUPLUe0'
+});
+
+// Get an instance of the geocoding service:
+var service = platform.getSearchService();
+
+// Call the geocode method with the geocoding parameters,
+// the callback and an error callback function (called if a
+// communication error occurs):
+service.geocode({
+    q: '200 S Mathilda Ave, Sunnyvale, CA'
+}, (result) => {
+    // Add a marker for each location found
+    result.items.forEach((item) => {
+        map.addObject(new H.map.Marker(item.position));
+    });
+}, alert);
+
+//select role  and show the according view for the user
 
 function selectRole() {
+    let role = document.getElementById("role").value;
+
     switch (role) {
         case "helper":
             document.getElementById("registerHelper").className = "open";
