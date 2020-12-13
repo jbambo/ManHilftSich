@@ -95,7 +95,8 @@ html {
     height: 100px;
 }
 
-/*end menu*/
+/*user data div*/
+
 
 /*map div*/
 #mapid{
@@ -106,6 +107,10 @@ html {
 #mapid *{
     border-radius: unset;
 }
+#mapid > *{
+    font-size: 10px;
+}
+/*end map div css*/
 
 /*form div and forms*/
 #parent{
@@ -123,13 +128,13 @@ html {
     display: none;
 }
 #registerUser.open{
-    display: initial;
+    display: block;
 }
 #registerHelper.close{
     display: none;
 }
 #registerHelper.open{
-    display: initial;
+    display: block;
 }
 #bossView.close{
     display: none;
@@ -137,7 +142,7 @@ html {
 #bossView.open{
     display: block;
 }
-
+/*end css form div and forms*/
 .flex-center {
     display: flex;
     justify-content: center;
@@ -187,7 +192,6 @@ html {
     border: 2px solid black;
 }
 
-
 pre {
     font-family: Impact, Charcoal, sans-serif;
 }
@@ -219,7 +223,6 @@ pre {
     font-size: 20px;
 }
 
-
 .lime {
     background-color: #73b832;
 }
@@ -239,14 +242,17 @@ pre {
 .margin-left-20pr {
     margin-left: 20%;
 }
+
 .width22pr {
     width: 22%;
 }
 
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
     .content_max_width {
+        max-width: 95%;
+        margin: auto;
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         flex-direction: column;
     }
-}
+}*/

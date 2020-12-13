@@ -10,7 +10,7 @@ return $verbindung;
 
 //echo "<br>Verbindung hergestelllt";
 
-//mysqli_close($verbindung);
+mysqli_close($verbindung);
 
 //echo "<br>Verbindung geschlossen";
 
