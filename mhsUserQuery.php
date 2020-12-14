@@ -29,7 +29,6 @@ if (!isset($_POST["userName"]) or //check if input is set
     $query = "INSERT INTO user(vname,nname,latitude,longitude,category,urgency) VALUES ('$vn','$nn','$lat','$long','$category','$urgency')";
     mysqli_query($verbindung, $query);
 
-
     //elseif ($action == 2) {
     //$query1= "SELECT DISTINCT id FROM $table WHERE vname=";
     //$result = mysqli_query($verbindung, $query1);

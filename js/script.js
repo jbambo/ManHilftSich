@@ -6,7 +6,6 @@ function testUser(testUserData) {
 
 function testHelper(testHelperData) {
     console.log(testHelperData)
-
 }
 
 function testAjax() {
@@ -75,6 +74,35 @@ function ajaxLoadHelperSuccess(jsonData) {
 //function to execute on ajax load user success
 function ajaxLoadUserSuccess(jsonData) {
     addUserMarker(jsonData);
+}
+
+//function block for boss view
+//run the queries with ajax
+function showPeasants() {
+    $.ajax({
+        url: "mhsGetHelperData.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: displayHelper //pass the json data from query to this function
+    });
+    $.ajax({
+        url: "mhsGetUserData.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: displayUser //pass the json data from query to this function
+    });
+}
+function displayHelper(jsonData){
+    let string= JSON.stringify(jsonData, undefined, 2);
+    document.getElementById("helperData").textContent =("Helper: "+string);
+}
+function displayUser(jsonData){
+    let string= JSON.stringify(jsonData, undefined, 2);
+    document.getElementById("userData").textContent =("User: "+string);
 }
 
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
@@ -184,7 +212,7 @@ function getLocation(token) {
 }
 
 //function for setting location
-function setLocation(setLong, setLat) {
+function setLocation(setLong, setLat,) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function inputPosition(position) {
             setLong.value = truncateCoords(position.coords.longitude);
@@ -193,16 +221,20 @@ function setLocation(setLong, setLat) {
     } else document.getElementById("response").innerHTML = "Geolocation not supported";
 }
 
-//get coordinates from an address
-function showAddress(){
-    document.getElementById("addressField").className="open";
+//getting coordinates from an address block
+//show address field
+function showAddress() {
+    document.getElementById("addressField").className = "open";
 }
-function closeAddress(){
-    document.getElementById("addressField").className="close";
+
+//close address field
+function closeAddress() {
+    document.getElementById("addressField").className = "close";
 }
+
 // Instantiate a map and platform object:
 var platform = new H.service.Platform({
-    'apikey': 'dFMgQ8qO0rHnnUtFlYtfCkoPiML3C2AAA14ruUPLUe0'
+    'apikey': 'cIrFMY6URD4dT2R-f89f0gZm0D8MMi5W6CYPnJcKGB8'
 });
 
 // Get an instance of the geocoding service:
@@ -211,14 +243,33 @@ var service = platform.getSearchService();
 // Call the geocode method with the geocoding parameters,
 // the callback and an error callback function (called if a
 // communication error occurs):
-service.geocode({
-    q: '200 S Mathilda Ave, Sunnyvale, CA'
-}, (result) => {
-    // Add a marker for each location found
-    result.items.forEach((item) => {
-        map.addObject(new H.map.Marker(item.position));
-    });
-}, alert);
+function addressToCoords() {
+    service.geocode({
+            q: document.getElementById("address").value
+        }, function (result) { //get the result and pass the value of long and lat to variables, truncate them and pass to function
+            let lng = truncateCoords(result.items[0].position.lng);
+            let lat = truncateCoords(result.items[0].position.lat);
+            showAddressCords(lat, lng);
+            console.log(lng + ", " + lat);
+        }, console.error()
+    );
+
+}
+
+//show the  cords from address
+function showAddressCords(lat, lng) {
+    let longitudeH = document.getElementById("helperLong");
+    let latitudeH = document.getElementById("helperLat");
+    let longitudeU = document.getElementById("userLong");
+    let latitudeU = document.getElementById("userLat");
+
+    longitudeH.value = lng;
+    latitudeH.value = lat;
+
+    longitudeU.value = lng;
+    latitudeU.value = lat;
+
+}
 
 //select role  and show the according view for the user
 
@@ -245,6 +296,7 @@ function selectRole() {
 
             break;
     }
+
 }
 
 //ajax run the user insert query
@@ -270,8 +322,3 @@ function ajaxSendHelper() {
             timeout: 1000,
         });
 }
-
-
-
-
-

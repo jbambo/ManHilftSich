@@ -15,7 +15,6 @@ $result = mysqli_query($verbindung, $query);
 //$data= mysqli_fetch_assoc($result)["id"];
 //echo implode(" id: ",$data);
 
-
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) { //loop to iterate over result query and pass it to local variables
         $user = array(

@@ -91,7 +91,7 @@ html {
     background-color: #999999;
 }
 
-#menu{ /*div for including the menu via php*/
+#menu { /*div for including the menu via php*/
     height: 100px;
 }
 
@@ -99,55 +99,79 @@ html {
 
 
 /*map div*/
-#mapid{
+#mapid {
     width: 640px;
     height: 480px;
     background-color: #999999;
 }
-#mapid *{
+
+#mapid * {
     border-radius: unset;
 }
-#mapid > *{
+
+#mapid > * {
     font-size: 10px;
 }
+
 /*end map div css*/
 
 /*form div and forms*/
-#parent{
-    margin: 10px;
-}
-#parent *{
-    padding: 4px;
+#parent {
+    margin: 5px;
 }
 
-#parent input, #parent option, #parent select, #parent input:enabled{
+#parent * {
+    padding: 3px;
+}
+
+#parent input, #parent option, #parent select, #parent input:enabled {
     background-color: #999999;
 }
 
-#registerUser.close{
+#registerUser.close {
     display: none;
 }
-#registerUser.open{
-    display: block;
-}
-#registerHelper.close{
-    display: none;
-}
-#registerHelper.open{
-    display: block;
-}
-#bossView.close{
-    display: none;
-}
-#bossView.open{
+
+#registerUser.open {
     display: block;
 }
 
-#addressField.close{
-    display:none;
+#registerHelper.close {
+    display: none;
 }
-#addressField.open{
-    display:block;
+
+#registerHelper.open {
+    display: block;
+}
+
+#bossView div {
+    display: flex;
+
+}
+
+#bossView pre {
+    flex: 50%;
+}
+
+#userData, #helperData {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#bossView.close {
+    display: none;
+}
+
+#bossView.open {
+    display: block;
+}
+
+#addressField.close {
+    display: none;
+}
+
+#addressField.open {
+    display: block;
 }
 
 /*end css form div and forms*/
@@ -198,10 +222,6 @@ html {
 
 .border {
     border: 2px solid black;
-}
-
-pre {
-    font-family: Impact, Charcoal, sans-serif;
 }
 
 .back-red {

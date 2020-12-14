@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+            type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+            type="text/javascript" charset="utf-8"></script>
     <!-- leaflet import js library-->
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
             integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
             crossorigin="">
     </script>
     <script type="text/javascript" src="js/jquery-3.5.1.js"></script> <!-- jquery import-->
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
-            type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
-            type="text/javascript" charset="utf-8"></script>
 </head>
 <body onload="onloadFunction()">
 
@@ -161,26 +161,33 @@
             </table>
             <p id="response"></p>
         </form>
-        <form id="addressField" class="close">
+        <div id="addressField" class="close">
             <table>
                 <tr>
                     <td>Address:</td>
                     <td>
                         <input type="text" id="address" name="address">
-
                     </td>
+                </tr>
+                <tr>
+                    <td></td>
                     <td>
-                        <input type="button" value="submit">
+                        <input type="button" value="submit" onclick="addressToCoords()">
                         <input type="button" value="close" onclick="closeAddress()">
                     </td>
                 </tr>
             </table>
-        </form>
-        <div id="bossView" class="close">im am the boss, hello</div>
+        </div>
+        <div id="bossView" class="close">
+            <input type="button" value="show all users" onclick="showPeasants()">
+            <div>
+                <pre id="userData"></pre>
+                <pre id="helperData"></pre>
+            </div>
+        </div>
     </div>
     <div>
         <div id="mapid" class="mar10"></div>
-        <div id="userData" class="mar10"></div>
     </div>
 </div>
 

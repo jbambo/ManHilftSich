@@ -1,27 +1,19 @@
 <?php
-$verbindung= include("mhs-db.php");
-$table = "punkte";
+$server="localhost";
+$user="root";
+$pass="";
+$db="mhsdb";
 
-for ($i=0; $i <= 5;$i++){
-    $x= rand(0,256);
-    $y= rand(0,256);
-    $sql= "Insert into punkte(x,y)
-        values($x,$y)";
-    mysqli_query($verbindung,$sql);
-    echo $i." time. x: ".$x." y: ".$y."<br>";
-}
+$verbindung= new mysqli($server, $user, $pass, $db) or
+die("Verbindung fehlgeschlagen"); //do sth or if fails stop and do sth
+return $verbindung;
 
-$query= "select * from punkte ";
-$result =mysqli_query($verbindung,$query);
-if ($result){
-    echo "nr  x   y";
-    while($row=mysqli_fetch_assoc($result)){
-        $nr=$row["nr"];
-        $x=$row["x"];
-        $y=$row["y"];
-        echo "<br>$nr  $x   $y";
-    }
-}
+$table = "requests";
+
+
+$query = "INSERT INTO requests(request_id,helper_id,status) VALUES(1,2,'to do')";
+
+mysqli_query($query,$verbindung);
 
 /*if(mysqli_query($verbindung,$sql)){
     echo "query executed";
