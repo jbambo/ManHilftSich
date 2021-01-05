@@ -25,10 +25,10 @@ a {
 }
 
 .content_max_width {
-    max-width: 95%;
+    max-width: 99%;
     margin: auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-direction: row;
 }
 
@@ -67,7 +67,6 @@ html {
 
 .menu #logo a {
     text-align: left;
-
 }
 
 .menu ul {
@@ -96,13 +95,16 @@ html {
 }
 
 /*user data div*/
+    /* tables boss view*/
+
 
 
 /*map div*/
 #mapid {
-    width: 640px;
-    height: 480px;
+    width: 982px;
+    height: 542px;
     background-color: #999999;
+    padding: 5px;
 }
 
 #mapid * {
@@ -112,8 +114,13 @@ html {
 #mapid > * {
     font-size: 10px;
 }
+/* charts div */
+#charts{
+    padding: 5px;
+    width: 982px;
+    height: 242px;
+}
 
-/*end map div css*/
 
 /*form div and forms*/
 #parent {
@@ -151,11 +158,6 @@ html {
 
 #bossView pre {
     flex: 50%;
-}
-
-#userData, #helperData {
-    font-size: 20px;
-    font-weight: normal;
 }
 
 #bossView.close {

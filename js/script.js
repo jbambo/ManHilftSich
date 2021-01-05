@@ -35,6 +35,8 @@ function onloadFunction() {
     setInterval(function () {
             ajaxLoadUser();         //run user and helper functions for markers
             ajaxLoadHelper();
+            // showHelperBoss();
+            // showUserBoss();
         },
         3000
     );
@@ -78,15 +80,7 @@ function ajaxLoadUserSuccess(jsonData) {
 
 //function block for boss view
 //run the queries with ajax
-function showPeasants() {
-    $.ajax({
-        url: "mhsGetHelperData.php",
-        data: {},
-        type: "GET",
-        dataType: "json",
-        timeout: 1000,
-        success: displayHelper //pass the json data from query to this function
-    });
+function showUserBoss() {
     $.ajax({
         url: "mhsGetUserData.php",
         data: {},
@@ -96,14 +90,63 @@ function showPeasants() {
         success: displayUser //pass the json data from query to this function
     });
 }
-function displayHelper(jsonData){
-    let string= JSON.stringify(jsonData, undefined, 2);
-    document.getElementById("helperData").textContent =("Helper: "+string);
-}
+
 function displayUser(jsonData){
-    let string= JSON.stringify(jsonData, undefined, 2);
-    document.getElementById("userData").textContent =("User: "+string);
+    let table = "<thead><tr>" +
+        "<th>ID</th>" +
+        "<th>Vorname</th>" +
+        "<th>Nachname</th>" +
+        "<th>Long</th>" +
+        "<th>Lat</th>" +
+        "<th>Category</th>" +
+        "<th>Urgency</th>" +
+        "</tr></thead><tbody>";
+    jsonData.forEach(function (d){
+        table=
+    })
+    //let string= JSON.stringify(jsonData, undefined, 2);
+    //document.getElementById("userData").innerH =("User: "+string);
 }
+
+function showHelperBoss(){
+    $.ajax({
+        url: "mhsGetHelperData.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: displayHelper //pass the json data from query to this function
+    });
+}
+
+function displayHelper(jsonData){
+    let table="<thead><tr>" +   //create a table header
+        "<th>ID</th>" +
+        "<th>Vorname</th>" +
+        "<th>Nachname</th>" +
+        "<th>Long</th>" +
+        "<th>Lat</th>"+
+        "<th>Category 1</th>"+
+        "<th>Category 2</th>"+
+         "</tr></thead><tbody>";
+    jsonData.forEach(function (d){   //loop over json object data and create table rows
+       table+="<tr><td>"+d.id+"</td>";
+        table+="<td>"+d.vname+"</td>";
+        table+="<td>"+d.nname+"</td>";
+        table+="<td>"+d.latitude+"</td>";
+        table+="<td>"+d.longitude+"</td>";
+        table+="<td>"+d.category1+"</td>";
+        table+="<td>"+d.category2+"</td></tr>";
+    })
+    table+= "</tbody>" ; //close the table body
+    document.getElementById("helperData").innerHTML=table;//put the table string into  element
+    console.log(table);
+   // let string= JSON.stringify(jsonData, undefined, 2);
+   // document.getElementById("helperData").textContent =("Helper: "+string);
+}
+
+
+
 
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;

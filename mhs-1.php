@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
+    <!--here api import -->
     <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
             type="text/javascript" charset="utf-8"></script>
     <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
@@ -16,7 +17,10 @@
             integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
             crossorigin="">
     </script>
-    <script type="text/javascript" src="js/jquery-3.5.1.js"></script> <!-- jquery import-->
+    <!-- jquery import-->
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <!-- highcharts import -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 <body onload="onloadFunction()">
 
@@ -86,7 +90,6 @@
                         <input type="reset" value="reset">
                     </td>
                     <td>
-                        <input type="button" value="delete user" onclick="ajaxSendUser()">
                         <input type="button" value="add user" onclick="ajaxSendUser()">
                     </td>
                 </tr>
@@ -144,10 +147,10 @@
                 <tr>
                     <td>
                         <input type="reset" value="reset">
+                        <input type="button" value="meine aufgaben">
                     </td>
                     <td>
                         <input type="button" value="add user" onclick="ajaxSendHelper()">
-                        <input type="button" value="delete user" onclick="ajaxSendUser()">
                     </td>
                 </tr>
                 <tr>
@@ -179,15 +182,20 @@
             </table>
         </div>
         <div id="bossView" class="close">
-            <input type="button" value="show all users" onclick="showPeasants()">
+            <input type="button" value="show Helper" onclick="showHelperBoss()">
+            <input type="button" value="show User" onclick="showUserBoss()">
             <div>
-                <pre id="userData"></pre>
-                <pre id="helperData"></pre>
+                <table id="helperData"></table>
+                <table id="userData"></table>
             </div>
         </div>
     </div>
     <div>
-        <div id="mapid" class="mar10"></div>
+        <div id="charts">
+            <div id="chart1"></div>
+            <div id="chart2"></div>
+        </div>
+        <div id="mapid" class=""></div>
     </div>
 </div>
 
