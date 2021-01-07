@@ -102,10 +102,10 @@ function displayUser(jsonData){
         "<th>Urgency</th>" +
         "</tr></thead><tbody>";
     jsonData.forEach(function (d){
-        table=
+        table=+
     })
     //let string= JSON.stringify(jsonData, undefined, 2);
-    //document.getElementById("userData").innerH =("User: "+string);
+    //document.getElementById("userData").innerHTML =("User: "+string);
 }
 
 function showHelperBoss(){
