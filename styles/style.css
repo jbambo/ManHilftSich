@@ -44,6 +44,14 @@ html {
     background-attachment: fixed;
 }
 
+.open {
+    display: revert;
+}
+
+.close {
+    display: none;
+}
+
 /*menu*/
 
 .menu {
@@ -94,14 +102,29 @@ html {
     height: 100px;
 }
 
-/*user data div*/
-    /* tables boss view*/
+/*boss view*/
+/* tables b*/
+#peasants {
+    display: none;
+}
+#peasants.open{
+    display: flex;
+    flex-direction: column;
+}
 
-
+/*div for map and charts*/
+#display {
+    display: none;
+    width: 982px;
+}
+#display.open{
+    display: block;
+}
 
 /*map div*/
+
 #mapid {
-    width: 982px;
+    /*width: 982px;*/
     height: 542px;
     background-color: #999999;
     padding: 5px;
@@ -114,13 +137,24 @@ html {
 #mapid > * {
     font-size: 10px;
 }
+
 /* charts div */
-#charts{
+#charts {
     padding: 5px;
     width: 982px;
     height: 242px;
+    display: flex;
+    flex-direction: row;
 }
-
+#charts > div{
+    margin: 1px;
+}
+#chart1{
+    width: 50%;
+}
+#chart2{
+    width: 50%;
+}
 
 /*form div and forms*/
 #parent {
@@ -135,22 +169,6 @@ html {
     background-color: #999999;
 }
 
-#registerUser.close {
-    display: none;
-}
-
-#registerUser.open {
-    display: block;
-}
-
-#registerHelper.close {
-    display: none;
-}
-
-#registerHelper.open {
-    display: block;
-}
-
 #bossView div {
     display: flex;
 
@@ -158,22 +176,6 @@ html {
 
 #bossView pre {
     flex: 50%;
-}
-
-#bossView.close {
-    display: none;
-}
-
-#bossView.open {
-    display: block;
-}
-
-#addressField.close {
-    display: none;
-}
-
-#addressField.open {
-    display: block;
 }
 
 /*end css form div and forms*/

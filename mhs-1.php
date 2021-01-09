@@ -24,7 +24,7 @@
 </head>
 <body onload="onloadFunction()">
 
-<div id="menu">
+<div id="menu" class="close">
     <?php include "mhs-menu.html" ?>
 </div>
 
@@ -147,7 +147,7 @@
                 <tr>
                     <td>
                         <input type="reset" value="reset">
-                        <input type="button" value="meine aufgaben">
+                        <input type="button" value="meine aufgaben" onclick="loginHelper()">
                     </td>
                     <td>
                         <input type="button" value="add user" onclick="ajaxSendHelper()">
@@ -182,20 +182,42 @@
             </table>
         </div>
         <div id="bossView" class="close">
-            <input type="button" value="show Helper" onclick="showHelperBoss()">
-            <input type="button" value="show User" onclick="showUserBoss()">
-            <div>
-                <table id="helperData"></table>
-                <table id="userData"></table>
-            </div>
+            <input type="button" value="show Helper" onclick="ajaxShowHelperBoss()">
+            <input type="button" value="show User" onclick="ajaxShowUserBoss()">
+            <form id="assignJob" method="post" action="#">
+                <table>
+                    <tr>
+                        <th>Hilfesuchender ID:</th>
+                        <th>Helfer ID:</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="number" step="1" id="userId" name="userId">
+                        </td>
+                        <td>
+                            <input type="number" step="1" id="helperId" name="helperId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="zuweisen" onclick="ajaxAssignJobs()">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="peasants" class="close">
+            <table id="helperData"></table>
+            <table id="userData"></table>
         </div>
     </div>
-    <div>
+
+    <div id="display">
         <div id="charts">
             <div id="chart1"></div>
             <div id="chart2"></div>
         </div>
-        <div id="mapid" class=""></div>
+        <div id="mapid" ></div>
     </div>
 </div>
 

@@ -3,11 +3,9 @@ function testUser(testUserData) {
     console.log(testUserData)
 
 }
-
 function testHelper(testHelperData) {
     console.log(testHelperData)
 }
-
 function testAjax() {
     $.ajax({
         url: "mhsGetHelperData.php",
@@ -27,6 +25,44 @@ function testAjax() {
     });
 }
 
+//select role  and show the according view for the user
+
+function selectRole() {
+    let role = document.getElementById("role").value;
+
+    switch (role) {
+        case "helper":
+            document.getElementById("registerHelper").className = "open";
+            document.getElementById("registerUser").className = "close";
+            document.getElementById("bossView").className = "close";
+            document.getElementById("display").classList.remove("open");
+            document.getElementById("peasants").classList.remove("open");
+            document.getElementById("addressField").className="close";
+
+            break;
+        case"user":
+            document.getElementById("registerUser").className = "open";
+            document.getElementById("registerHelper").className = "close";
+            document.getElementById("bossView").className = "close";
+            document.getElementById("display").classList.remove("open");
+            document.getElementById("peasants").classList.remove("open");
+            document.getElementById("addressField").className="close";
+
+            break;
+        case "boss":
+            document.getElementById("registerUser").className = "close";
+            document.getElementById("registerHelper").className = "close";
+            document.getElementById("addressField").className="close";
+            document.getElementById("bossView").className = "open";
+            document.getElementById("peasants").className="open";
+            document.getElementById("display").className="open";
+
+
+            break;
+    }
+
+}
+
 //function to load when the site has completely loaded, used with <body> tag
 function onloadFunction() {
     initMap();
@@ -41,6 +77,30 @@ function onloadFunction() {
         3000
     );
 
+}
+
+//ajax run the user insert query
+function ajaxSendUser() {
+    let data = $("form").serializeArray();
+    $.ajax(
+        {
+            url: "mhsUserQuery.php",
+            data: data,
+            type: "POST",
+            timeout: 1000,
+        });
+}
+
+//ajax run the helper insert query
+function ajaxSendHelper() {
+    let data = $("form").serializeArray();
+    $.ajax(
+        {
+            url: "mhsHelperQuery.php",
+            data: data,
+            type: "POST",
+            timeout: 1000,
+        });
 }
 
 //run the query (select from user table) with ajax
@@ -79,8 +139,7 @@ function ajaxLoadUserSuccess(jsonData) {
 }
 
 //function block for boss view
-//run the queries with ajax
-function showUserBoss() {
+function ajaxShowUserBoss() {
     $.ajax({
         url: "mhsGetUserData.php",
         data: {},
@@ -91,8 +150,8 @@ function showUserBoss() {
     });
 }
 
-function displayUser(jsonData){
-    let table = "<thead><tr>" +
+function displayUser(jsonData) {
+    let table = "<thead><tr><th>Hilfesuchende</th></tr><tr>" +
         "<th>ID</th>" +
         "<th>Vorname</th>" +
         "<th>Nachname</th>" +
@@ -101,14 +160,22 @@ function displayUser(jsonData){
         "<th>Category</th>" +
         "<th>Urgency</th>" +
         "</tr></thead><tbody>";
-    jsonData.forEach(function (d){
-        table=+
+    jsonData.forEach(function (element) {
+        table += "<tr><td>" + element.id + "</td>";
+        table += "<td>" + element.vname + "</td>";
+        table += "<td>" + element.nname + "</td>";
+        table += "<td>" + element.longitude + "</td>";
+        table += "<td>" + element.latitude + "</td>";
+        table += "<td>" + element.category + "</td>";
+        table += "<td>" + element.urgency + "</td></tr>";
     })
+    table += "</body>" // close the table
+    document.getElementById("userData").innerHTML = table; //fill the table
     //let string= JSON.stringify(jsonData, undefined, 2);
     //document.getElementById("userData").innerHTML =("User: "+string);
 }
 
-function showHelperBoss(){
+function ajaxShowHelperBoss() {
     $.ajax({
         url: "mhsGetHelperData.php",
         data: {},
@@ -119,34 +186,42 @@ function showHelperBoss(){
     });
 }
 
-function displayHelper(jsonData){
-    let table="<thead><tr>" +   //create a table header
+function displayHelper(jsonData) {
+    let table = "<thead><tr><th>Helfer</th></tr><tr>" +   //create a table header
         "<th>ID</th>" +
         "<th>Vorname</th>" +
         "<th>Nachname</th>" +
         "<th>Long</th>" +
-        "<th>Lat</th>"+
-        "<th>Category 1</th>"+
-        "<th>Category 2</th>"+
-         "</tr></thead><tbody>";
-    jsonData.forEach(function (d){   //loop over json object data and create table rows
-       table+="<tr><td>"+d.id+"</td>";
-        table+="<td>"+d.vname+"</td>";
-        table+="<td>"+d.nname+"</td>";
-        table+="<td>"+d.latitude+"</td>";
-        table+="<td>"+d.longitude+"</td>";
-        table+="<td>"+d.category1+"</td>";
-        table+="<td>"+d.category2+"</td></tr>";
+        "<th>Lat</th>" +
+        "<th>Category 1</th>" +
+        "<th>Category 2</th>" +
+        "</tr></thead><tbody>";
+    jsonData.forEach(function (d) {   //loop over json object data and create table rows
+        table += "<tr><td>" + d.id + "</td>";
+        table += "<td>" + d.vname + "</td>";
+        table += "<td>" + d.nname + "</td>";
+        table += "<td>" + d.longitude + "</td>";
+        table += "<td>" + d.latitude + "</td>";
+        table += "<td>" + d.category1 + "</td>";
+        table += "<td>" + d.category2 + "</td></tr>";
     })
-    table+= "</tbody>" ; //close the table body
-    document.getElementById("helperData").innerHTML=table;//put the table string into  element
+    table += "</tbody>"; //close the table body
+    document.getElementById("helperData").innerHTML = table;//put the table string into  element
     console.log(table);
-   // let string= JSON.stringify(jsonData, undefined, 2);
-   // document.getElementById("helperData").textContent =("Helper: "+string);
+    // let string= JSON.stringify(jsonData, undefined, 2);
+    // document.getElementById("helperData").textContent =("Helper: "+string);
 }
 
-
-
+function ajaxAssignJobs(){
+    let data = $("form").serializeArray();
+    $.ajax(
+        {
+            url: "mhsAssignRequest.php",
+            data: data,
+            type: "POST",
+            timeout: 1000,
+        });
+}
 
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;
@@ -314,54 +389,58 @@ function showAddressCords(lat, lng) {
 
 }
 
-//select role  and show the according view for the user
+//charts
 
-function selectRole() {
-    let role = document.getElementById("role").value;
+document.addEventListener('DOMContentLoaded', function () {
+    const chart1 = Highcharts.chart('chart1', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const chart2 = Highcharts.chart('chart2', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
 
-    switch (role) {
-        case "helper":
-            document.getElementById("registerHelper").className = "open";
-            document.getElementById("registerUser").className = "close";
-            document.getElementById("bossView").className = "close";
 
-            break;
-        case"user":
-            document.getElementById("registerUser").className = "open";
-            document.getElementById("registerHelper").className = "close";
-            document.getElementById("bossView").className = "close";
 
-            break;
-        case "boss":
-            document.getElementById("registerUser").className = "close";
-            document.getElementById("registerHelper").className = "close";
-            document.getElementById("bossView").className = "open";
-
-            break;
-    }
-
-}
-
-//ajax run the user insert query
-function ajaxSendUser() {
-    let data = $("form").serializeArray();
-    $.ajax(
-        {
-            url: "mhsUserQuery.php",
-            data: data,
-            type: "POST",
-            timeout: 1000,
-        });
-}
-
-//ajax run the helper insert query
-function ajaxSendHelper() {
-    let data = $("form").serializeArray();
-    $.ajax(
-        {
-            url: "mhsHelperQuery.php",
-            data: data,
-            type: "POST",
-            timeout: 1000,
-        });
-}
