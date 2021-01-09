@@ -3,9 +3,11 @@ function testUser(testUserData) {
     console.log(testUserData)
 
 }
+
 function testHelper(testHelperData) {
     console.log(testHelperData)
 }
+
 function testAjax() {
     $.ajax({
         url: "mhsGetHelperData.php",
@@ -37,7 +39,7 @@ function selectRole() {
             document.getElementById("bossView").className = "close";
             document.getElementById("display").classList.remove("open");
             document.getElementById("peasants").classList.remove("open");
-            document.getElementById("addressField").className="close";
+            document.getElementById("addressField").className = "close";
 
             break;
         case"user":
@@ -46,16 +48,16 @@ function selectRole() {
             document.getElementById("bossView").className = "close";
             document.getElementById("display").classList.remove("open");
             document.getElementById("peasants").classList.remove("open");
-            document.getElementById("addressField").className="close";
+            document.getElementById("addressField").className = "close";
 
             break;
         case "boss":
             document.getElementById("registerUser").className = "close";
             document.getElementById("registerHelper").className = "close";
-            document.getElementById("addressField").className="close";
+            document.getElementById("addressField").className = "close";
             document.getElementById("bossView").className = "open";
-            document.getElementById("peasants").className="open";
-            document.getElementById("display").className="open";
+            document.getElementById("peasants").className = "open";
+            document.getElementById("display").className = "open";
 
 
             break;
@@ -212,7 +214,7 @@ function displayHelper(jsonData) {
     // document.getElementById("helperData").textContent =("Helper: "+string);
 }
 
-function ajaxAssignJobs(){
+function ajaxAssignJobs() {
     let data = $("form").serializeArray();
     $.ajax(
         {
@@ -392,55 +394,45 @@ function showAddressCords(lat, lng) {
 //charts
 
 document.addEventListener('DOMContentLoaded', function () {
-    const chart1 = Highcharts.chart('chart1', {
+    var options = {
         chart: {
-            type: 'bar'
+            type: "column"
         },
         title: {
-            text: 'Fruit Consumption'
+            text: 'Hilfesuchenden'
         },
         xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
+            categories: ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
+            title: {
+                text: 'Dringlichkeit:'
+            }
         },
         yAxis: {
             title: {
-                text: 'Fruit eaten'
+                text: 'Nachfrage'
             }
         },
+        colors:['#04d4bc','#0ee331','#ddb809','#ff0000'],
         series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
+            name: 'nicht dringend',
+            data: [1, 1, 4, 6]
         }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }]
-    });
-});
-document.addEventListener('DOMContentLoaded', function () {
-    const chart2 = Highcharts.chart('chart2', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
+            name: 'dringend',
+            data: [5, 7, 3, 8]
         }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }]
-    });
+            name: 'sehr dringend',
+            data: [5, 7, 3, 8]
+        }, {
+            name: 'notfall',
+            data: [5, 7, 3, 8]
+        },
+        ]
+
+    };
+    const chart1 = Highcharts.chart('chart1', options);
+
 });
+
 
 
 

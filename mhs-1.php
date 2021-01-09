@@ -213,11 +213,11 @@
     </div>
 
     <div id="display">
+        <div id="mapid" ></div>
         <div id="charts">
             <div id="chart1"></div>
             <div id="chart2"></div>
         </div>
-        <div id="mapid" ></div>
     </div>
 </div>
 

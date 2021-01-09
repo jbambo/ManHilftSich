@@ -142,18 +142,13 @@ html {
 #charts {
     padding: 5px;
     width: 982px;
-    height: 242px;
+    height: 600px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 #charts > div{
     margin: 1px;
-}
-#chart1{
-    width: 50%;
-}
-#chart2{
-    width: 50%;
 }
 
 /*form div and forms*/
