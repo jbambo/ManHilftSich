@@ -1,30 +1,27 @@
 //test functions
+
 function testUser(testUserData) {
-    console.log(testUserData)
-
-}
-
-function testHelper(testHelperData) {
-    console.log(testHelperData)
+    console.log("Garten and urgency 1: " + sumByKey(testUserData, "Garten", "1"));
 }
 
 function testAjax() {
-    $.ajax({
-        url: "mhsGetHelperData.php",
-        data: {},
-        type: "GET",
-        dataType: "json",
-        timeout: 1000,
-        success: testHelper //pass the json data from query to this function
-    });
-    $.ajax({
-        url: "mhsGetUserData.php",
-        data: {},
-        type: "GET",
-        dataType: "json",
-        timeout: 1000,
-        success: testUser //pass the json data from query to this function
-    });
+    /* $.ajax({
+         url: "mhsGetUserData.php",
+         data: {},
+         type: "GET",
+         dataType: "json",
+         timeout: 1000,
+         success: testUser //pass the json data from query to this function
+     });*/
+    /* $.ajax({
+         url: "mhsGetUserData.php",
+         data: {},
+         type: "GET",
+         dataType: "json",
+         timeout: 1000,
+         success: testUser //pass the json data from query to this function
+     });*/
+
 }
 
 //select role  and show the according view for the user
@@ -67,12 +64,12 @@ function selectRole() {
 
 //function to load when the site has completely loaded, used with <body> tag
 function onloadFunction() {
-    initMap();
     ajaxLoadUser();
     ajaxLoadHelper();
     setInterval(function () {
             ajaxLoadUser();         //run user and helper functions for markers
             ajaxLoadHelper();
+            showChart();
             // showHelperBoss();
             // showUserBoss();
         },
@@ -393,26 +390,150 @@ function showAddressCords(lat, lng) {
 
 //charts
 
-document.addEventListener('DOMContentLoaded', function () {
+//user chart
+function showChart() {
+   //initialize charts
     var options = {
         chart: {
+            animation:false,
             type: "column"
         },
         title: {
+            style: {
+                fontSize: '35px',
+                fontWeight: 'bold'
+            },
             text: 'Hilfesuchenden'
         },
+        tooltip: {
+            style: {
+                fontSize: '25px'
+            },
+            formatter: function () {
+                return this.x + ': ' + this.y + '<br>' + this.series.name;
+            },
+            shared: false
+        },
+
         xAxis: {
-            categories: ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
+            labels: {
+                style: {
+                    fontSize: '25px',
+                    whiteSpace: 'nowrap'
+                }
+            },
+
+            categories:
+                ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
+
             title: {
+                style: {
+                    fontWeight: 'bold'
+                },
                 text: 'Dringlichkeit:'
             }
         },
         yAxis: {
+            labels: {
+                style: {
+                    fontSize: '25px'
+                }
+            },
             title: {
-                text: 'Nachfrage'
+                text: 'Anzahl Benutzer'
             }
         },
-        colors:['#04d4bc','#0ee331','#ddb809','#ff0000'],
+        colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
+        series: [{
+            name: "nicht dringend",
+        },
+            {
+                name: "dringend",
+
+            },
+            {
+                name: "sehr dringend",
+
+            },
+            {
+                name: "notfall",
+
+            }
+        ]
+    };
+    $.ajax({
+        url: "mhsGetUserData.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: function (jsonData) {//pass the json data from query to this function
+            let cats = ["Garten", "zu Hause", "beim Einkaufen", "im Hof"];
+            let urgencies = ["1", "2", "3", "4"];
+            let arr = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    arr[i][j] = sumByKey(jsonData, cats[i], urgencies[j]);
+                }
+            }
+            for (let i = 0; i < 4; i++) {
+                options.series[i].data = arr[i];
+            }
+            Highcharts.chart('chart1', options);
+        }
+    });
+
+    var options2 = {
+        chart: {
+            animation:false,
+            type: "column"
+        },
+        title: {
+            style: {
+                fontSize: '35px',
+                fontWeight: 'bold'
+            },
+            text: 'Helfer'
+        },
+        tooltip: {
+            style: {
+                fontSize: '25px'
+            },
+            formatter: function () {
+                return this.x + ': ' + this.y + '<br>' + this.series.name;
+            },
+            shared: false
+        },
+
+        xAxis: {
+            labels: {
+                style: {
+                    fontSize: '25px',
+                    whiteSpace: 'nowrap'
+                }
+            },
+
+            categories:
+                ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
+
+            title: {
+                style: {
+                    fontWeight: 'bold'
+                },
+                text: 'Dringlichkeit:'
+            }
+        },
+        yAxis: {
+            labels: {
+                style: {
+                    fontSize: '25px'
+                }
+            },
+            title: {
+                text: 'Anzahl Benutzer'
+            }
+        },
+        colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
         series: [{
             name: 'nicht dringend',
             data: [1, 1, 4, 6]
@@ -423,16 +544,77 @@ document.addEventListener('DOMContentLoaded', function () {
             name: 'sehr dringend',
             data: [5, 7, 3, 8]
         }, {
-            name: 'notfall',
-            data: [5, 7, 3, 8]
+            name: 'Notfall',
+            data: [5, 7, 3, 12]
         },
         ]
 
     };
-    const chart1 = Highcharts.chart('chart1', options);
 
-});
+    const chart2 = Highcharts.chart('chart2', options2);
+    setInterval()
 
+}
 
+//return an array of objects according to key, value, or key and value matching
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else
+            //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+        if (i == key && obj[i] == val || i == key && val == '') { //
+            objects.push(obj);
+        } else if (obj[i] == val && key == '') {
+            //only add if the object is not already in the array
+            if (objects.lastIndexOf(obj) == -1) {
+                objects.push(obj);
+            }
+        }
+    }
+    return objects;
+}
+
+//return an array of values that match on a certain key
+function getValues(obj, key) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getValues(obj[i], key));
+        } else if (i == key) {
+            objects.push(obj[i]);
+        }
+    }
+    return objects;
+}
+
+//return an array of keys that match on a certain value
+function getKeys(obj, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getKeys(obj[i], val));
+        } else if (obj[i] == val) {
+            objects.push(i);
+        }
+    }
+    return objects;
+}
+
+//awesome function to count categries and urgency
+
+function sumByKey(array, catValue, urgencyValue) {
+    let sum = 0;
+    for (let i = 0, len = array.length; i < len; i++) {
+        if ((array[i]["category"] == catValue) && (array[i]["urgency"] == urgencyValue)) {
+            sum++;
+        }
+    }
+    return sum;
+}
 
 

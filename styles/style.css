@@ -145,9 +145,11 @@ html {
     height: 600px;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 #charts > div{
+    width: 50%;
+    height: 100%;
     margin: 1px;
 }
 

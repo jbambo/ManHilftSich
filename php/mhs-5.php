@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Man Hilft Sich</title>
-    <link href="styles/style.css" rel="stylesheet">
+    <link href="../styles/style.css" rel="stylesheet">
 </head>
 <body>
 <header>
