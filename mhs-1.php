@@ -46,7 +46,7 @@
         </form>
         <form id="registerUser" class="close" method="post" action="#">
             <table>
-                <tr><b>Hilfesuchender Anmeldung</b></tr>
+                <th>Hilfesuchender Anmeldung</b></th>
                 <tr>
                     <td>Vorname:</td>
                     <td><input type="text" id="userName" name="userName" required></td>
@@ -105,7 +105,7 @@
         </form>
         <form id="registerHelper" class="close" method="post" action="#">
             <table>
-                <tr><b>Helfer Anmeldung</b></tr>
+                <th>Helfer Anmeldung</th>
                 <tr>
                     <td>Vorname</td>
                     <td><input type="text" id="helperName" name="helperName" required></td>
@@ -163,6 +163,9 @@
 
             </table>
             <p id="response"></p>
+            <div>
+                <table id="helperJobs"></table>
+            </div>
         </form>
         <div id="addressField" class="close">
             <table>
@@ -185,6 +188,7 @@
             <input type="button" value="show Helper" onclick="ajaxShowHelperBoss()">
             <input type="button" value="show User" onclick="ajaxShowUserBoss()">
             <input type="button" value="show graphic" onclick="showChart()">
+            <input type="button" value="update iso" onclick="ajaxRunIsoService()">
             <form id="assignJob" method="post" action="#">
                 <table>
                     <tr>

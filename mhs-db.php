@@ -13,5 +13,3 @@ return $verbindung;
 mysqli_close($verbindung);
 
 //echo "<br>Verbindung geschlossen";
-
-?>

@@ -1,18 +1,36 @@
 //test functions
 
 function testUser(testUserData) {
-    console.log("Garten and urgency 1: " + sumByKey(testUserData, "Garten", "1"));
+    testUserData.forEach(function (element) {
+        let coords="";
+        // coords+=element.longitude+"%2C"+element.latitude+"|";
+        coords += "[" + element.longitude + "," + element.latitude+"]";
+        //coords+=","
+        //console.log(coords);
+        runIsoService(coords);
+    });
+    //coords= coords.substring(0,coords.length-1);
+    /*    $.ajax({
+            url: "https://api.openrouteservice.org/isochrones?locations=8.34234%2C48.23424|8.34234%2C48.23424&
+            profile=driving-car&range_type=distance&range=10000&location_type=start&intersections=false&api_key=
+            5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2",
+            data: {},
+            type: "GET",
+            dataType: "json",
+            timeout: 1000,
+            success: function () //pass the json data from query to this function
+        });*/
 }
 
 function testAjax() {
-    /* $.ajax({
-         url: "mhsGetUserData.php",
-         data: {},
-         type: "GET",
-         dataType: "json",
-         timeout: 1000,
-         success: testUser //pass the json data from query to this function
-     });*/
+    $.ajax({
+        url: "mhsGetHelperDataIso.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: testUser //pass the json data from query to this function
+    });
     /* $.ajax({
          url: "mhsGetUserData.php",
          data: {},
@@ -37,8 +55,8 @@ function selectRole() {
             document.getElementById("display").classList.remove("open");
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
-
             break;
+
         case"user":
             document.getElementById("registerUser").className = "open";
             document.getElementById("registerHelper").className = "close";
@@ -46,8 +64,8 @@ function selectRole() {
             document.getElementById("display").classList.remove("open");
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
-
             break;
+
         case "boss":
             document.getElementById("registerUser").className = "close";
             document.getElementById("registerHelper").className = "close";
@@ -55,10 +73,14 @@ function selectRole() {
             document.getElementById("bossView").className = "open";
             document.getElementById("peasants").className = "open";
             document.getElementById("display").className = "open";
-
-
             break;
     }
+}
+
+//helper
+
+function loginHelper() {
+
 
 }
 
@@ -221,9 +243,71 @@ function ajaxAssignJobs() {
         });
 }
 
+function ajaxRunIsoService(){
+    $.ajax({
+        url: "mhsGetHelperDataIso.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: function(jsonData){
+            isoLayer.addTo(map);
+
+            jsonData.forEach(function (element) {
+                let coords="";
+                // coords+=element.longitude+"%2C"+element.latitude+"|";
+                coords += "[" + element.longitude + "," + element.latitude+"]";
+
+                let request = new XMLHttpRequest();
+                request.open('POST', "https://api.openrouteservice.org/v2/isochrones/driving-car");
+                request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.setRequestHeader('Authorization', '5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2');
+
+                request.onreadystatechange = function () {
+                    if (this.readyState === 4) {
+                        //console.log('Status:', this.status);
+                        //console.log('Headers:', this.getAllResponseHeaders());
+                        //isoLayer.addData(this.responseText) ;
+                        console.log(this.response);
+                        let geoJson= JSON.parse(this.response)
+                        isoLayer.addData(geoJson);
+                    }
+                };
+
+                const body = '{"locations":['+coords+'],"range":[10000],"intersections":"true","range_type":"distance","units":"m"}';
+
+                request.send(body);
+            });
+
+        } //pass the json data from query to this function
+    });
+}
+
+function runIsoService(coords){
+    let request = new XMLHttpRequest();
+    request.open('POST', "https://api.openrouteservice.org/v2/isochrones/driving-car");
+    request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Authorization', '5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2');
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            //console.log('Status:', this.status);
+            //console.log('Headers:', this.getAllResponseHeaders());
+             isoLayer.addData(this.responseText) ;
+        }
+    };
+
+    const body = '{"locations":['+coords+'],"range":[10000],"intersections":"true","range_type":"distance","units":"m"}';
+
+    request.send(body);
+
+}
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;
 var markerLayerUser = null;
+var isoLayer = L.geoJSON();
 var markerLayerHelper = null;
 var greenIcon;
 var tealIcon;
@@ -287,6 +371,7 @@ function addHelperMarker(jsonData) {
         iconUrl: "img/icon_helper.png"
     });
 
+
     jsonData.forEach(function (element) {
         let marker = new L.marker([element.latitude, element.longitude], {
             clickable: true,
@@ -294,12 +379,13 @@ function addHelperMarker(jsonData) {
         })
             .bindPopup("<p>" + element.vname + " " + element.nname + "<br>Bietet Hilfe an: " + element.category1 + " und " + element.category2 + "</p>")
             .addTo(markerLayerHelper);
-        let circle = new L.circle([element.latitude, element.longitude], {
+        /*let circle = new L.circle([element.latitude, element.longitude], {
             radius: 1000,
             stroke: false,
             fillColor: "#9405fa"
         })
-            .addTo(markerLayerHelper);
+            .addTo(markerLayerHelper);*/
+
     });//foreach loop
     map.addLayer(markerLayerHelper);
 }
@@ -388,7 +474,6 @@ function showAddressCords(lat, lng) {
 }
 
 //charts
-
 //user chart
 function showChart() {
     //initialize charts
@@ -442,19 +527,19 @@ function showChart() {
         colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
         series: [{
             name: "nicht dringend",
-            data:[]
+            data: []
         },
             {
                 name: "dringend",
-                data:[]
+                data: []
             },
             {
                 name: "sehr dringend",
-                data:[]
+                data: []
             },
             {
                 name: "notfall",
-                data:[]
+                data: []
             }
         ]
     };
@@ -468,23 +553,21 @@ function showChart() {
             console.log(jsonData);
             let cats = ["Garten", "zu Hause", "beim Einkaufen", "im Hof"];
             let urgencies = ["1", "2", "3", "4"];
-            let arr={0:[],1:[],2:[],3:[]};
-            console.log(arr+" fresh aray")
+            let arr = {0: [], 1: [], 2: [], 3: []};
+            console.log(arr + " fresh aray")
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < 4; j++) {
-                    console.log("checking: "+cats[i]+" and "+urgencies[j])
-                    let currentSum =sumByKey(jsonData, cats[i], urgencies[j]);
-                    console.log(currentSum+"current sum");
+                    console.log("checking: " + cats[i] + " and " + urgencies[j])
+                    let currentSum = sumByKey(jsonData, cats[i], urgencies[j]);
+                    console.log(currentSum + "current sum");
                     arr[1][j] = currentSum;
-
                 }
             }
-                console.log(arr+"array ")
-                options.series[0].data = arr["0"];
-                options.series[1].data = arr["1"];
-                options.series[2].data = arr["2"];
-                options.series[3].data = arr["3"];
-
+            console.log(arr + "array ")
+            options.series[0].data = arr["0"];
+            options.series[1].data = arr["1"];
+            options.series[2].data = arr["2"];
+            options.series[3].data = arr["3"];
 
             const chart1 = Highcharts.chart('chart1', options);
 
@@ -613,11 +696,11 @@ function getKeys(obj, val) {
 
 //awesome function to count categries and urgency
 
-var sumByKey = function(array, catValue, urgencyValue) {
+var sumByKey = function (array, catValue, urgencyValue) {
     let sum = 0;
     for (let i = 0, len = array.length; i < len; i++) {
         if (array[i]["category"] == catValue) {
-            if (array[i]["urgency"] == urgencyValue){
+            if (array[i]["urgency"] == urgencyValue) {
                 sum++;
             }
         }
