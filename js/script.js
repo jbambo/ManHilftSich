@@ -84,15 +84,15 @@ function loginHelper() {
     let data = $("form").serializeArray();
 
     $.ajax({
-        type:"POST",
-        url:"mhsLoginHelper.php",
-        data:data,
-        dataType:"json",
-        timeout:1000,
-        success:showBob
+        type: "POST",
+        url: "mhsLoginHelper.php",
+        data: data,
+        dataType: "json",
+        timeout: 1000,
+        success: showBob
     });
 
-    document.getElementById("jobStatus").className="open";
+    document.getElementById("jobStatus").className = "open";
 }
 
 function showBob(jsonData) {
@@ -115,6 +115,17 @@ function showBob(jsonData) {
 
 //change job status
 function changeJobStatus() {
+    let data =  $("form").serializeArray();
+
+    $.ajax({
+        type: "POST",
+        data:data,
+        url: "mhsJobQuery.php",
+        timeout: 1000,
+        success: function () {
+            document.getElementById("message").innerText="Status changed :)";
+        }
+    });
 
 }
 
@@ -314,9 +325,6 @@ function ajaxRunIsoService() {
 
                 request.onreadystatechange = function () {
                     if (this.readyState === 4) {
-                        //console.log('Status:', this.status);
-                        //console.log('Headers:', this.getAllResponseHeaders());
-                        //isoLayer.addData(this.responseText) ;
                         console.log(this.response);
                         let geoJson = JSON.parse(this.response)
                         isoLayer.addData(geoJson);
@@ -330,27 +338,6 @@ function ajaxRunIsoService() {
     });
 }
 
-/*function runIsoService(coords){//testing purposes
-
-    let request = new XMLHttpRequest();
-    request.open('POST', "https://api.openrouteservice.org/v2/isochrones/driving-car");
-    request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.setRequestHeader('Authorization', '5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2');
-
-    request.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            //console.log('Status:', this.status);
-            //console.log('Headers:', this.getAllResponseHeaders());
-             isoLayer.addData(this.responseText) ;
-        }
-    };
-
-    const body = '{"locations":['+coords+'],"range":[10000],"intersections":"true","range_type":"distance","units":"m"}';
-
-    request.send(body);
-
-}*/
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;
 var markerLayerUser = null;
@@ -467,7 +454,7 @@ function setLocation(setLong, setLat,) {
             setLong.value = truncateCoords(position.coords.longitude);
             setLat.value = truncateCoords(position.coords.latitude);
         });
-    } else document.getElementById("response").innerHTML = "Geolocation not supported";
+    } else document.getElementById("message").innerHTML = "Geolocation not supported";
 }
 
 //getting coordinates from an address block

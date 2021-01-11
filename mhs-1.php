@@ -103,7 +103,7 @@
                         </td>
                     </tr>
                 </table>
-                <p id="response"></p>
+                <p id="message"></p>
             </form>
         </div>
         <div id="registerHelper" class="close">
@@ -162,13 +162,13 @@
                         </td>
                         <td>
                             <input type="button" value="show route" onclick="showTheWay()">
-                            <input type="button" value="LOGIN" onclick="loginHelper()">
+                            <input type="button" value="LOGIN/LOAD" onclick="loginHelper()">
                             <input type="reset" value="reset">
                         </td>
                     </tr>
 
                 </table>
-                <p id="response"></p>
+                <p id="message"></p>
             </form>
             <form id="jobStatus" method="post" action="#" class="close">
                 <table>
@@ -185,7 +185,7 @@
                             <input type="number" id="jobId" name="jobId">
                         </td>
                         <td>
-                            <select>
+                            <select name="status" id="status">
                                 <option value="in progress">in progress</option>
                                 <option value="done">done</option>
                             </select>
