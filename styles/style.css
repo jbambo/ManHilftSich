@@ -45,7 +45,7 @@ html {
 }
 
 .open {
-    display: revert;
+    display: initial;
 }
 
 .close {
@@ -113,12 +113,8 @@ html {
 }
 
 /*div for map and charts*/
-#display {
-    display: none;
+#graphics {
     width: 982px;
-}
-#display.open{
-    display: block;
 }
 
 /*map div*/

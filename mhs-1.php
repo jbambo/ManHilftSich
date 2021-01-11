@@ -30,6 +30,7 @@
 
 <div class="content_max_width">
     <div id="parent">
+
         <form id="selectRole">
             <table>
                 <tr>
@@ -44,129 +45,160 @@
                 </tr>
             </table>
         </form>
-        <form id="registerUser" class="close" method="post" action="#">
-            <table>
-                <th>Hilfesuchender Anmeldung</b></th>
-                <tr>
-                    <td>Vorname:</td>
-                    <td><input type="text" id="userName" name="userName" required></td>
-                </tr>
-                <tr>
-                    <td>Nachname:</td>
-                    <td><input type="text" id="userSurname" name="userSurname" required></td>
-                </tr>
-                <tr>
-                    <td>Longitude:</td>
-                    <td><input type="number" step="0.001" id="userLong" name="userLong" required></td>
-                </tr>
-                <tr>
-                    <td>Latitude:</td>
-                    <td><input type="number" step="0.001" id="userLat" name="userLat" required></td>
-                </tr>
-                <tr>
-                    <td>Benötigte hilfe:</td>
-                    <td>
-                        <select name="category" id="category" required>
-                            <option value="Garten">Garten</option>
-                            <option value="zu Hause">zu Hause</option>
-                            <option value="beim Einkaufen">beim Einkaufen</option>
-                            <option value="im Hof">im Hof</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Dringlichkeit:</td>
-                    <td>
-                        <select name="urgency" id="urgency" required>
-                            <option value="1">nicht dringend</option>
-                            <option value="2">dringend</option>
-                            <option value="3">sehr dringend</option>
-                            <option value="4">notfall</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="reset" value="reset">
-                    </td>
-                    <td>
-                        <input type="button" value="add user" onclick="ajaxSendUser()">
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="button" value="get location" onclick="getLocation(2)">
-                        <input type="button" value="adress" onclick="showAddress()">
-                    </td>
-                </tr>
-            </table>
-            <p id="response"></p>
-        </form>
-        <form id="registerHelper" class="close" method="post" action="#">
-            <table>
-                <th>Helfer Anmeldung</th>
-                <tr>
-                    <td>Vorname</td>
-                    <td><input type="text" id="helperName" name="helperName" required></td>
-                </tr>
-                <tr>
-                    <td>Nachname</td>
-                    <td><input type="text" id="helperSurname" name="helperSurname" required></td>
-                </tr>
-                <tr>
-                    <td>Longitude</td>
-                    <td><input type="number" step="0.001" id="helperLong" name="helperLong" required></td>
-                </tr>
-                <tr>
-                    <td>Latitude</td>
-                    <td><input type="number" step="0.001" id="helperLat" name="helperLat" required></td>
-                </tr>
-                <tr>
-                    <td>Ich erledige 1.:</td>
-                    <td>
-                        <select name="category1" id="category1" required>
-                            <option value="Garten">Garten</option>
-                            <option value="zu Hause">zu Hause</option>
-                            <option value="beim Einkaufen">beim Einkaufen</option>
-                            <option value="im Hof">im Hof</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Ich erledige 2.:</td>
-                    <td>
-                        <select name="category2" id="category2" required>
-                            <option value="Garten">Garten</option>
-                            <option value="zu Hause">zu Hause</option>
-                            <option value="beim Einkaufen">beim Einkaufen</option>
-                            <option value="im Hof">im Hof</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="reset" value="reset">
-                        <input type="button" value="meine aufgaben" onclick="loginHelper()">
-                    </td>
-                    <td>
-                        <input type="button" value="add user" onclick="ajaxSendHelper()">
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="button" value="get location" onclick="getLocation(1)">
-                        <input type="button" value="address" onclick="showAddress()">
-                    </td>
-                </tr>
+        <div id="registerUser" class="close">
+            <form method="post" action="#">
+                <table>
+                    <th>Hilfesuchender Anmeldung</b></th>
+                    <tr>
+                        <td>Vorname:</td>
+                        <td><input type="text" id="userName" name="userName" required></td>
+                    </tr>
+                    <tr>
+                        <td>Nachname:</td>
+                        <td><input type="text" id="userSurname" name="userSurname" required></td>
+                    </tr>
+                    <tr>
+                        <td>Longitude:</td>
+                        <td><input type="number" step="0.001" id="userLong" name="userLong" required></td>
+                    </tr>
+                    <tr>
+                        <td>Latitude:</td>
+                        <td><input type="number" step="0.001" id="userLat" name="userLat" required></td>
+                    </tr>
+                    <tr>
+                        <td>Benötigte hilfe:</td>
+                        <td>
+                            <select name="category" id="category" required>
+                                <option value="Garten">Garten</option>
+                                <option value="zu Hause">zu Hause</option>
+                                <option value="beim Einkaufen">beim Einkaufen</option>
+                                <option value="im Hof">im Hof</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dringlichkeit:</td>
+                        <td>
+                            <select name="urgency" id="urgency" required>
+                                <option value="1">nicht dringend</option>
+                                <option value="2">dringend</option>
+                                <option value="3">sehr dringend</option>
+                                <option value="4">notfall</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="reset" value="reset">
+                        </td>
+                        <td>
+                            <input type="button" value="add user" onclick="ajaxSendUser()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" value="get location" onclick="getLocation(2)">
+                            <input type="button" value="adress" onclick="showAddress()">
+                        </td>
+                    </tr>
+                </table>
+                <p id="response"></p>
+            </form>
+        </div>
+        <div id="registerHelper" class="close">
+            <form method="post" action="#">
+                <table>
+                    <th>Helfer Anmeldung</th>
+                    <tr>
+                        <td>Vorname</td>
+                        <td><input type="text" id="helperName" name="helperName" required></td>
+                    </tr>
+                    <tr>
+                        <td>Nachname</td>
+                        <td><input type="text" id="helperSurname" name="helperSurname" required></td>
+                    </tr>
+                    <tr>
+                        <td>Longitude</td>
+                        <td><input type="number" step="0.001" id="helperLong" name="helperLong" required></td>
+                    </tr>
+                    <tr>
+                        <td>Latitude</td>
+                        <td><input type="number" step="0.001" id="helperLat" name="helperLat" required></td>
+                    </tr>
+                    <tr>
+                        <td>Ich erledige 1.:</td>
+                        <td>
+                            <select name="category1" id="category1" required>
+                                <option value="Garten">Garten</option>
+                                <option value="zu Hause">zu Hause</option>
+                                <option value="beim Einkaufen">beim Einkaufen</option>
+                                <option value="im Hof">im Hof</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ich erledige 2.:</td>
+                        <td>
+                            <select name="category2" id="category2" required>
+                                <option value="Garten">Garten</option>
+                                <option value="zu Hause">zu Hause</option>
+                                <option value="beim Einkaufen">beim Einkaufen</option>
+                                <option value="im Hof">im Hof</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input type="button" value="add user" onclick="ajaxSendHelper()">
+                            <input type="button" value="location" onclick="getLocation(1)">
+                            <input type="button" value="address" onclick="showAddress()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input type="button" value="show route" onclick="showTheWay()">
+                            <input type="button" value="LOGIN" onclick="loginHelper()">
+                            <input type="reset" value="reset">
+                        </td>
+                    </tr>
 
-            </table>
-            <p id="response"></p>
-            <div>
-                <table id="helperJobs"></table>
-            </div>
-        </form>
+                </table>
+                <p id="response"></p>
+            </form>
+            <form id="jobStatus" method="post" action="#" class="close">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Job id</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input type="number" id="jobId" name="jobId">
+                        </td>
+                        <td>
+                            <select>
+                                <option value="in progress">in progress</option>
+                                <option value="done">done</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="button" value="change status" onclick="changeJobStatus()">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+            <table id="helperJobs"></table>
+        </div>
         <div id="addressField" class="close">
             <table>
                 <tr>
@@ -217,9 +249,11 @@
         </div>
     </div>
 
-    <div id="display">
-        <div id="mapid" ></div>
-        <div id="charts">
+    <div>
+        <div id="graphics" class="open">
+            <div id="mapid"></div>
+        </div>
+        <div id="charts" class="close">
             <div id="chart1"></div>
             <div id="chart2"></div>
         </div>

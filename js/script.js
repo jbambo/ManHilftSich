@@ -2,9 +2,9 @@
 
 function testUser(testUserData) {
     testUserData.forEach(function (element) {
-        let coords="";
+        let coords = "";
         // coords+=element.longitude+"%2C"+element.latitude+"|";
-        coords += "[" + element.longitude + "," + element.latitude+"]";
+        coords += "[" + element.longitude + "," + element.latitude + "]";
         //coords+=","
         //console.log(coords);
         runIsoService(coords);
@@ -52,7 +52,7 @@ function selectRole() {
             document.getElementById("registerHelper").className = "open";
             document.getElementById("registerUser").className = "close";
             document.getElementById("bossView").className = "close";
-            document.getElementById("display").classList.remove("open");
+            document.getElementById("graphics").className = "open";
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
             break;
@@ -61,7 +61,7 @@ function selectRole() {
             document.getElementById("registerUser").className = "open";
             document.getElementById("registerHelper").className = "close";
             document.getElementById("bossView").className = "close";
-            document.getElementById("display").classList.remove("open");
+            document.getElementById("graphics").className = "close";
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
             break;
@@ -70,9 +70,10 @@ function selectRole() {
             document.getElementById("registerUser").className = "close";
             document.getElementById("registerHelper").className = "close";
             document.getElementById("addressField").className = "close";
+            document.getElementById("graphics").className = "open";
+
             document.getElementById("bossView").className = "open";
             document.getElementById("peasants").className = "open";
-            document.getElementById("display").className = "open";
             break;
     }
 }
@@ -80,7 +81,44 @@ function selectRole() {
 //helper
 
 function loginHelper() {
+    let data = $("form").serializeArray();
 
+    $.ajax({
+        type:"POST",
+        url:"mhsLoginHelper.php",
+        data:data,
+        dataType:"json",
+        timeout:1000,
+        success:showBob
+    });
+
+    document.getElementById("jobStatus").className="open";
+}
+
+function showBob(jsonData) {
+    console.log(jsonData);
+    let table = "<thead><tr><th>Aufgaben</th></tr><tr>" +
+        "<th>Aufgaben Nr.</th>" +
+        "<th>Deine Nr.</th>" +
+        "<th>Hilfesuchender Nr.</th>" +
+        "<th>Status</th>" +
+        "</tr></thead><tbody>";
+    jsonData.forEach(function (element) {
+        table += "<tr><td>" + element.id + "</td>";
+        table += "<td>" + element.helper_id + "</td>";
+        table += "<td>" + element.user_id + "</td>";
+        table += "<td>" + element.status + "</td></tr>";
+    })
+    table += "</body>" // close the table
+    document.getElementById("helperJobs").innerHTML = table; //fill the table
+}
+
+//change job status
+function changeJobStatus() {
+
+}
+
+function showTheWay() {
 
 }
 
@@ -159,7 +197,10 @@ function ajaxLoadUserSuccess(jsonData) {
     addUserMarker(jsonData);
 }
 
+
 //function block for boss view
+
+//show user data for boss
 function ajaxShowUserBoss() {
     $.ajax({
         url: "mhsGetUserData.php",
@@ -196,6 +237,7 @@ function displayUser(jsonData) {
     //document.getElementById("userData").innerHTML =("User: "+string);
 }
 
+//show helper data for boss
 function ajaxShowHelperBoss() {
     $.ajax({
         url: "mhsGetHelperData.php",
@@ -232,6 +274,7 @@ function displayHelper(jsonData) {
     // document.getElementById("helperData").textContent =("Helper: "+string);
 }
 
+//assign job to a helper
 function ajaxAssignJobs() {
     let data = $("form").serializeArray();
     $.ajax(
@@ -243,20 +286,25 @@ function ajaxAssignJobs() {
         });
 }
 
-function ajaxRunIsoService(){
+//show isochrone 10km around helper
+function ajaxRunIsoService() {
     $.ajax({
         url: "mhsGetHelperDataIso.php",
         data: {},
         type: "GET",
         dataType: "json",
         timeout: 1000,
-        success: function(jsonData){
-            isoLayer.addTo(map);
-
+        success: function (jsonData) {
+            if (isoLayer == null) {
+                isoLayer = L.geoJSON().addTo(map);
+            } else {
+                isoLayer.clearLayers();
+                isoLayer = L.geoJSON().addTo(map);
+            }
             jsonData.forEach(function (element) {
-                let coords="";
+                let coords = "";
                 // coords+=element.longitude+"%2C"+element.latitude+"|";
-                coords += "[" + element.longitude + "," + element.latitude+"]";
+                coords += "[" + element.longitude + "," + element.latitude + "]";
 
                 let request = new XMLHttpRequest();
                 request.open('POST', "https://api.openrouteservice.org/v2/isochrones/driving-car");
@@ -270,13 +318,11 @@ function ajaxRunIsoService(){
                         //console.log('Headers:', this.getAllResponseHeaders());
                         //isoLayer.addData(this.responseText) ;
                         console.log(this.response);
-                        let geoJson= JSON.parse(this.response)
+                        let geoJson = JSON.parse(this.response)
                         isoLayer.addData(geoJson);
                     }
                 };
-
-                const body = '{"locations":['+coords+'],"range":[10000],"intersections":"true","range_type":"distance","units":"m"}';
-
+                const body = '{"locations":[' + coords + '],"range":[10000],"intersections":"true","range_type":"distance","units":"m"}';
                 request.send(body);
             });
 
@@ -284,7 +330,8 @@ function ajaxRunIsoService(){
     });
 }
 
-function runIsoService(coords){
+/*function runIsoService(coords){//testing purposes
+
     let request = new XMLHttpRequest();
     request.open('POST', "https://api.openrouteservice.org/v2/isochrones/driving-car");
     request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
@@ -303,11 +350,11 @@ function runIsoService(coords){
 
     request.send(body);
 
-}
+}*/
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;
 var markerLayerUser = null;
-var isoLayer = L.geoJSON();
+var isoLayer = null;
 var markerLayerHelper = null;
 var greenIcon;
 var tealIcon;
