@@ -64,12 +64,12 @@ function selectRole() {
 
 //function to load when the site has completely loaded, used with <body> tag
 function onloadFunction() {
+    initMap();
     ajaxLoadUser();
     ajaxLoadHelper();
     setInterval(function () {
             ajaxLoadUser();         //run user and helper functions for markers
             ajaxLoadHelper();
-            showChart();
             // showHelperBoss();
             // showUserBoss();
         },
@@ -206,7 +206,6 @@ function displayHelper(jsonData) {
     })
     table += "</tbody>"; //close the table body
     document.getElementById("helperData").innerHTML = table;//put the table string into  element
-    console.log(table);
     // let string= JSON.stringify(jsonData, undefined, 2);
     // document.getElementById("helperData").textContent =("Helper: "+string);
 }
@@ -392,10 +391,10 @@ function showAddressCords(lat, lng) {
 
 //user chart
 function showChart() {
-   //initialize charts
+    //initialize charts
     var options = {
         chart: {
-            animation:false,
+            animation: false,
             type: "column"
         },
         title: {
@@ -414,7 +413,6 @@ function showChart() {
             },
             shared: false
         },
-
         xAxis: {
             labels: {
                 style: {
@@ -422,10 +420,8 @@ function showChart() {
                     whiteSpace: 'nowrap'
                 }
             },
-
             categories:
                 ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
-
             title: {
                 style: {
                     fontWeight: 'bold'
@@ -446,115 +442,125 @@ function showChart() {
         colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
         series: [{
             name: "nicht dringend",
+            data:[]
         },
             {
                 name: "dringend",
-
+                data:[]
             },
             {
                 name: "sehr dringend",
-
+                data:[]
             },
             {
                 name: "notfall",
-
+                data:[]
             }
         ]
     };
     $.ajax({
-        url: "mhsGetUserData.php",
+        url: "mhsGetUserDataChart.php",
         data: {},
         type: "GET",
         dataType: "json",
         timeout: 1000,
         success: function (jsonData) {//pass the json data from query to this function
+            console.log(jsonData);
             let cats = ["Garten", "zu Hause", "beim Einkaufen", "im Hof"];
             let urgencies = ["1", "2", "3", "4"];
-            let arr = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+            let arr={0:[],1:[],2:[],3:[]};
+            console.log(arr+" fresh aray")
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < 4; j++) {
-                    arr[i][j] = sumByKey(jsonData, cats[i], urgencies[j]);
+                    console.log("checking: "+cats[i]+" and "+urgencies[j])
+                    let currentSum =sumByKey(jsonData, cats[i], urgencies[j]);
+                    console.log(currentSum+"current sum");
+                    arr[1][j] = currentSum;
+
                 }
             }
-            for (let i = 0; i < 4; i++) {
-                options.series[i].data = arr[i];
-            }
-            Highcharts.chart('chart1', options);
+                console.log(arr+"array ")
+                options.series[0].data = arr["0"];
+                options.series[1].data = arr["1"];
+                options.series[2].data = arr["2"];
+                options.series[3].data = arr["3"];
+
+
+            const chart1 = Highcharts.chart('chart1', options);
+
         }
     });
+}
 
-    var options2 = {
-        chart: {
-            animation:false,
-            type: "column"
+/*var options2 = {
+    chart: {
+        animation: false,
+        type: "column"
+    },
+    title: {
+        style: {
+            fontSize: '35px',
+            fontWeight: 'bold'
         },
+        text: 'Helfer'
+    },
+    tooltip: {
+        style: {
+            fontSize: '25px'
+        },
+        formatter: function () {
+            return this.x + ': ' + this.y + '<br>' + this.series.name;
+        },
+        shared: false
+    },
+
+    xAxis: {
+        labels: {
+            style: {
+                fontSize: '25px',
+                whiteSpace: 'nowrap'
+            }
+        },
+
+        categories:
+            ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
+
         title: {
             style: {
-                fontSize: '35px',
                 fontWeight: 'bold'
             },
-            text: 'Helfer'
-        },
-        tooltip: {
+            text: 'Dringlichkeit:'
+        }
+    },
+    yAxis: {
+        labels: {
             style: {
                 fontSize: '25px'
-            },
-            formatter: function () {
-                return this.x + ': ' + this.y + '<br>' + this.series.name;
-            },
-            shared: false
-        },
-
-        xAxis: {
-            labels: {
-                style: {
-                    fontSize: '25px',
-                    whiteSpace: 'nowrap'
-                }
-            },
-
-            categories:
-                ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
-
-            title: {
-                style: {
-                    fontWeight: 'bold'
-                },
-                text: 'Dringlichkeit:'
             }
         },
-        yAxis: {
-            labels: {
-                style: {
-                    fontSize: '25px'
-                }
-            },
-            title: {
-                text: 'Anzahl Benutzer'
-            }
-        },
-        colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
-        series: [{
-            name: 'nicht dringend',
-            data: [1, 1, 4, 6]
-        }, {
-            name: 'dringend',
-            data: [5, 7, 3, 8]
-        }, {
-            name: 'sehr dringend',
-            data: [5, 7, 3, 8]
-        }, {
-            name: 'Notfall',
-            data: [5, 7, 3, 12]
-        },
-        ]
+        title: {
+            text: 'Anzahl Benutzer'
+        }
+    },
+    colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
+    series: [{
+        name: 'nicht dringend',
+        data: [1, 1, 4, 6]
+    }, {
+        name: 'dringend',
+        data: [5, 7, 3, 8]
+    }, {
+        name: 'sehr dringend',
+        data: [5, 7, 3, 8]
+    }, {
+        name: 'Notfall',
+        data: [5, 7, 3, 12]
+    },
+    ]
 
-    };
+};*/
 
-    const chart2 = Highcharts.chart('chart2', options2);
-    setInterval()
-
-}
+//const chart2 = Highcharts.chart('chart2', options2);
 
 //return an array of objects according to key, value, or key and value matching
 function getObjects(obj, key, val) {
@@ -607,11 +613,13 @@ function getKeys(obj, val) {
 
 //awesome function to count categries and urgency
 
-function sumByKey(array, catValue, urgencyValue) {
+var sumByKey = function(array, catValue, urgencyValue) {
     let sum = 0;
     for (let i = 0, len = array.length; i < len; i++) {
-        if ((array[i]["category"] == catValue) && (array[i]["urgency"] == urgencyValue)) {
-            sum++;
+        if (array[i]["category"] == catValue) {
+            if (array[i]["urgency"] == urgencyValue){
+                sum++;
+            }
         }
     }
     return sum;

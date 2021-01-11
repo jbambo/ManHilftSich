@@ -184,7 +184,7 @@
         <div id="bossView" class="close">
             <input type="button" value="show Helper" onclick="ajaxShowHelperBoss()">
             <input type="button" value="show User" onclick="ajaxShowUserBoss()">
-            <input type="button" value="show graphic" onclick="showChart(),initMap()">
+            <input type="button" value="show graphic" onclick="showChart()">
             <form id="assignJob" method="post" action="#">
                 <table>
                     <tr>
