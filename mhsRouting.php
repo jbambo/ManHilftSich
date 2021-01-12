@@ -36,4 +36,3 @@ if (!isset($_POST["myId"]) or
     print($jsonData);
 
 }
-

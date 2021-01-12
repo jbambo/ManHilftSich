@@ -46,16 +46,16 @@ function testAjax() {
 
 function selectRole() {
     let role = document.getElementById("role").value;
-    let mapClass= document.getElementById("map").className;
+    let mapClass = document.getElementById("map").className;
 
     switch (role) {
         case "helper":
-            document.getElementById("charts").className="close";
+            document.getElementById("charts").className = "close";
             document.getElementById("registerHelper").className = "open";
             document.getElementById("registerUser").className = "close";
             document.getElementById("bossView").className = "close";
-            if (mapClass=="close"){
-                mapClass="open";
+            if (mapClass == "close") {
+                mapClass = "open";
             }
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
@@ -70,7 +70,7 @@ function selectRole() {
             document.getElementById("map").className = "close";
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
-            document.getElementById("charts").className="close";
+            document.getElementById("charts").className = "close";
 
             break;
 
@@ -81,7 +81,7 @@ function selectRole() {
             document.getElementById("map").className = "open";
             document.getElementById("bossView").className = "open";
             document.getElementById("peasants").className = "open";
-            document.getElementById("charts").className="open";
+            document.getElementById("charts").className = "open";
             break;
     }
 }
@@ -120,8 +120,8 @@ function showBob(jsonData) {
     })
     table += "</body>"// close the table
     document.getElementById("helperJobs").innerHTML = table; //fill the table
-    let myId= jsonData[0].helper_id;
-    document.getElementById("myId").value= myId;
+    let myId = jsonData[0].helper_id;
+    document.getElementById("myId").value = myId;
 }
 
 //change job status
@@ -149,14 +149,14 @@ function showTheWay() {
         data: data,
         dataType: "json",
         timeout: 1000,
-        success: function (jsonData){
-           /* 'start=8.681495,49.41461&' +
-            'end=8.687872,49.420318'*/
-            let start="";
-            let end="";
-            jsonData.forEach(function (element){
-                start+=element.startLong+","+element.startLat;
-                end+=element.endLong+","+element.endLat;
+        success: function (jsonData) {
+            /* 'start=8.681495,49.41461&' +
+             'end=8.687872,49.420318'*/
+            let start = "";
+            let end = "";
+            jsonData.forEach(function (element) {
+                start += element.startLong + "," + element.startLat;
+                end += element.endLong + "," + element.endLat;
             });
             if (routeLayer == null) {
                 routeLayer = L.geoJSON().addTo(map);
@@ -168,9 +168,9 @@ function showTheWay() {
 
             request.open('GET', 'https://api.openrouteservice.org/v2/directions/driving-car?' +
                 'api_key=5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2&' +
-                'start='+start+'&' +
-                'end='+end+'');
-                //[long, lat]
+                'start=' + start + '&' +
+                'end=' + end + '');
+            //[long, lat]
             request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
 
             request.onreadystatechange = function () {
@@ -184,7 +184,6 @@ function showTheWay() {
         }
     });
 }
-
 
 //function to load when the site has completely loaded, used with <body> tag
 function onloadFunction() {
@@ -390,7 +389,7 @@ function ajaxRunIsoService() {
 
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;
-var routeLayer =null;
+var routeLayer = null;
 var markerLayerUser = null;
 var isoLayer = null;
 var markerLayerHelper = null;
@@ -652,8 +651,8 @@ function showChart() {
 
             }
             console.log();*/
-            for (let i=0;i<4;i++){
-                options.series[i].data=jsonData[i];
+            for (let i = 0; i < 4; i++) {
+                options.series[i].data = jsonData[i];
             }
             console.log(options.series)
             Highcharts.chart('chart1', options);
@@ -662,73 +661,73 @@ function showChart() {
 
     //chart 2 options
     var options2 = {
-    chart: {
-        animation: false,
-        type: "column"
-    },
-    title: {
-        style: {
-            fontSize: '35px',
-            fontWeight: 'bold'
+        chart: {
+            animation: false,
+            type: "column"
         },
-        text: 'Helfer'
-    },
-    tooltip: {
-        style: {
-            fontSize: '25px'
-        },
-        formatter: function () {
-            return this.x + ' und ' + this.series.name + '<br>' + this.y;
-        },
-        shared: false
-    },
-
-    xAxis: {
-        labels: {
-            style: {
-                fontSize: '25px',
-                whiteSpace: 'nowrap'
-            }
-        },
-
-        categories:
-            ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
-
         title: {
             style: {
+                fontSize: '35px',
                 fontWeight: 'bold'
             },
-            text: 'Dringlichkeit:'
-        }
-    },
-    yAxis: {
-        labels: {
+            text: 'Helfer'
+        },
+        tooltip: {
             style: {
                 fontSize: '25px'
-            }
+            },
+            formatter: function () {
+                return this.x + ' und ' + this.series.name + '<br>' + this.y;
+            },
+            shared: false
         },
 
-        title: {
-            text: 'Anzahl Benutzer'
-        }
-    },
-    colors: ['#0900ff', '#ff0000', '#ffc200', '#00ffe1'],
-    series: [{
-        name: 'im Garten',
-        data: [1, 1, 4, 6]
-    }, {
-        name: 'zu Hause',
-        data: [5, 7, 3, 8]
-    }, {
-        name: 'beim Einkaufen',
-        data: [5, 7, 3, 8]
-    }, {
-        name: 'im Hof',
-        data: [5, 7, 3, 12]
-    },
-    ]
+        xAxis: {
+            labels: {
+                style: {
+                    fontSize: '25px',
+                    whiteSpace: 'nowrap'
+                }
+            },
 
-};
+            categories:
+                ['im Garten', 'zu Hause', 'beim Einkaufen', 'im Hof'],
+
+            title: {
+                style: {
+                    fontWeight: 'bold'
+                },
+                text: 'Dringlichkeit:'
+            }
+        },
+        yAxis: {
+            labels: {
+                style: {
+                    fontSize: '25px'
+                }
+            },
+
+            title: {
+                text: 'Anzahl Benutzer'
+            }
+        },
+        colors: ['#0900ff', '#ff0000', '#ffc200', '#00ffe1'],
+        series: [{
+            name: 'im Garten',
+            data: [1, 1, 4, 6]
+        }, {
+            name: 'zu Hause',
+            data: [5, 7, 3, 8]
+        }, {
+            name: 'beim Einkaufen',
+            data: [5, 7, 3, 8]
+        }, {
+            name: 'im Hof',
+            data: [5, 7, 3, 12]
+        },
+        ]
+
+    };
 
     $.ajax({
         url: "mhsGetHelperDataChart.php",
@@ -737,8 +736,8 @@ function showChart() {
         dataType: "json",
         timeout: 1000,
         success: function (jsonData) {//pass the json data from query to this function
-            for (let i=0;i<4;i++){
-                options2.series[i].data=jsonData[i];
+            for (let i = 0; i < 4; i++) {
+                options2.series[i].data = jsonData[i];
             }
             Highcharts.chart('chart2', options2);
         }
@@ -746,69 +745,3 @@ function showChart() {
 
 
 }
-
-
-//return an array of objects according to key, value, or key and value matching
-function getObjects(obj, key, val) {
-    var objects = [];
-    for (var i in obj) {
-        if (!obj.hasOwnProperty(i)) continue;
-        if (typeof obj[i] == 'object') {
-            objects = objects.concat(getObjects(obj[i], key, val));
-        } else
-            //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
-        if (i == key && obj[i] == val || i == key && val == '') { //
-            objects.push(obj);
-        } else if (obj[i] == val && key == '') {
-            //only add if the object is not already in the array
-            if (objects.lastIndexOf(obj) == -1) {
-                objects.push(obj);
-            }
-        }
-    }
-    return objects;
-}
-
-//return an array of values that match on a certain key
-function getValues(obj, key) {
-    var objects = [];
-    for (var i in obj) {
-        if (!obj.hasOwnProperty(i)) continue;
-        if (typeof obj[i] == 'object') {
-            objects = objects.concat(getValues(obj[i], key));
-        } else if (i == key) {
-            objects.push(obj[i]);
-        }
-    }
-    return objects;
-}
-
-//return an array of keys that match on a certain value
-function getKeys(obj, val) {
-    var objects = [];
-    for (var i in obj) {
-        if (!obj.hasOwnProperty(i)) continue;
-        if (typeof obj[i] == 'object') {
-            objects = objects.concat(getKeys(obj[i], val));
-        } else if (obj[i] == val) {
-            objects.push(i);
-        }
-    }
-    return objects;
-}
-
-//awesome function to count categries and urgency
-
-var sumByKey = function (array, catValue, urgencyValue) {
-    let sum = 0;
-    for (let i = 0, len = array.length; i < len; i++) {
-        if (array[i]["category"] == catValue) {
-            if (array[i]["urgency"] == urgencyValue) {
-                sum++;
-            }
-        }
-    }
-    return sum;
-}
-
-

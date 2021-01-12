@@ -24,7 +24,7 @@ if (!isset($_POST["helperName"]) or //check if input is set
     $verbindung = include("mhs-db.php");
 
     $query = "SELECT * FROM assignments WHERE helper_id=(select id from helper WHERE 
-        (helper.vname = '$vn' AND helper.nname='$nn' AND helper.cat1='$category1' AND helper.cat2='$category2'))";
+        (helper.vname = '$vn' AND helper.nname='$nn' AND helper.cat1='$category1' AND helper.cat2='$category2')and status <>'done')";
 
     /* INNER JOIN
      helper on assignments.helper_id = helper.id
