@@ -46,40 +46,48 @@ function testAjax() {
 
 function selectRole() {
     let role = document.getElementById("role").value;
+    let mapClass= document.getElementById("map").className;
 
     switch (role) {
         case "helper":
+            document.getElementById("charts").className="close";
             document.getElementById("registerHelper").className = "open";
             document.getElementById("registerUser").className = "close";
             document.getElementById("bossView").className = "close";
-            document.getElementById("graphics").className = "open";
+            if (mapClass=="close"){
+                mapClass="open";
+            }
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
+
+
             break;
 
         case"user":
             document.getElementById("registerUser").className = "open";
             document.getElementById("registerHelper").className = "close";
             document.getElementById("bossView").className = "close";
-            document.getElementById("graphics").className = "close";
+            document.getElementById("map").className = "close";
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
+            document.getElementById("charts").className="close";
+
             break;
 
         case "boss":
             document.getElementById("registerUser").className = "close";
             document.getElementById("registerHelper").className = "close";
             document.getElementById("addressField").className = "close";
-            document.getElementById("graphics").className = "open";
-
+            document.getElementById("map").className = "open";
             document.getElementById("bossView").className = "open";
             document.getElementById("peasants").className = "open";
+            document.getElementById("charts").className="open";
             break;
     }
 }
 
 //helper
-
+//login for helper
 function loginHelper() {
     let data = $("form").serializeArray();
 
@@ -95,6 +103,7 @@ function loginHelper() {
     document.getElementById("jobStatus").className = "open";
 }
 
+//show the jobs for helper after login
 function showBob(jsonData) {
     console.log(jsonData);
     let table = "<thead><tr><th>Aufgaben</th></tr><tr>" +
@@ -115,20 +124,21 @@ function showBob(jsonData) {
 
 //change job status
 function changeJobStatus() {
-    let data =  $("form").serializeArray();
+    let data = $("form").serializeArray();
 
     $.ajax({
         type: "POST",
-        data:data,
+        data: data,
         url: "mhsJobQuery.php",
         timeout: 1000,
         success: function () {
-            document.getElementById("message").innerText="Status changed :)";
+            document.getElementById("message").innerText = "Status changed :)";
         }
     });
 
 }
 
+//show the route for chosen job
 function showTheWay() {
 
 }
@@ -208,9 +218,7 @@ function ajaxLoadUserSuccess(jsonData) {
     addUserMarker(jsonData);
 }
 
-
 //function block for boss view
-
 //show user data for boss
 function ajaxShowUserBoss() {
     $.ajax({
@@ -507,10 +515,9 @@ function showAddressCords(lat, lng) {
 
 }
 
-//charts
-//user chart
+//show charts
 function showChart() {
-    //initialize charts
+    //declare chart1 options
     var options = {
         chart: {
             animation: false,
@@ -561,22 +568,19 @@ function showChart() {
         colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
         series: [{
             name: "nicht dringend",
-            data: []
         },
             {
                 name: "dringend",
-                data: []
             },
             {
                 name: "sehr dringend",
-                data: []
             },
             {
                 name: "notfall",
-                data: []
             }
         ]
     };
+    //ajax function to obtain data for chart
     $.ajax({
         url: "mhsGetUserDataChart.php",
         data: {},
@@ -585,31 +589,36 @@ function showChart() {
         timeout: 1000,
         success: function (jsonData) {//pass the json data from query to this function
             console.log(jsonData);
-            let cats = ["Garten", "zu Hause", "beim Einkaufen", "im Hof"];
+            /*let cats = ["Garten", "zu Hause", "beim Einkaufen", "im Hof"];
             let urgencies = ["1", "2", "3", "4"];
-            let arr = {0: [], 1: [], 2: [], 3: []};
-            console.log(arr + " fresh aray")
+            let vals="";
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < 4; j++) {
                     console.log("checking: " + cats[i] + " and " + urgencies[j])
                     let currentSum = sumByKey(jsonData, cats[i], urgencies[j]);
                     console.log(currentSum + "current sum");
-                    arr[1][j] = currentSum;
+                    vals+=currentSum+",";
                 }
             }
-            console.log(arr + "array ")
-            options.series[0].data = arr["0"];
-            options.series[1].data = arr["1"];
-            options.series[2].data = arr["2"];
-            options.series[3].data = arr["3"];
+            vals= vals.substring(0,vals.length-1);
+            for (let i=0,x=0,y=7;i<4;i++){
+                let arr= new Array(7);
+                arr=vals.substring(x,y);
+               x+=8;
+               y+=8;
 
-            const chart1 = Highcharts.chart('chart1', options);
-
+            }
+            console.log();*/
+            for (let i=0;i<4;i++){
+                options.series[i].data=jsonData[i];
+            }
+            console.log(options.series)
+            Highcharts.chart('chart1', options);
         }
     });
-}
 
-/*var options2 = {
+    //chart 2 options
+    var options2 = {
     chart: {
         animation: false,
         type: "column"
@@ -626,7 +635,7 @@ function showChart() {
             fontSize: '25px'
         },
         formatter: function () {
-            return this.x + ': ' + this.y + '<br>' + this.series.name;
+            return this.x + ' und ' + this.series.name + '<br>' + this.y;
         },
         shared: false
     },
@@ -655,29 +664,46 @@ function showChart() {
                 fontSize: '25px'
             }
         },
+
         title: {
             text: 'Anzahl Benutzer'
         }
     },
-    colors: ['#04d4bc', '#0ee331', '#ddb809', '#ff0000'],
+    colors: ['#0900ff', '#ff0000', '#ffc200', '#00ffe1'],
     series: [{
-        name: 'nicht dringend',
+        name: 'im Garten',
         data: [1, 1, 4, 6]
     }, {
-        name: 'dringend',
+        name: 'zu Hause',
         data: [5, 7, 3, 8]
     }, {
-        name: 'sehr dringend',
+        name: 'beim Einkaufen',
         data: [5, 7, 3, 8]
     }, {
-        name: 'Notfall',
+        name: 'im Hof',
         data: [5, 7, 3, 12]
     },
     ]
 
-};*/
+};
 
-//const chart2 = Highcharts.chart('chart2', options2);
+    $.ajax({
+        url: "mhsGetHelperDataChart.php",
+        data: {},
+        type: "GET",
+        dataType: "json",
+        timeout: 1000,
+        success: function (jsonData) {//pass the json data from query to this function
+            for (let i=0;i<4;i++){
+                options2.series[i].data=jsonData[i];
+            }
+            Highcharts.chart('chart2', options2);
+        }
+    });
+
+
+}
+
 
 //return an array of objects according to key, value, or key and value matching
 function getObjects(obj, key, val) {

@@ -107,7 +107,8 @@ html {
 #peasants {
     display: none;
 }
-#peasants.open{
+
+#peasants.open {
     display: flex;
     flex-direction: column;
 }
@@ -120,7 +121,7 @@ html {
 /*map div*/
 
 #mapid {
-    /*width: 982px;*/
+    width: 982px;
     height: 542px;
     background-color: #999999;
     padding: 5px;
@@ -135,15 +136,22 @@ html {
 }
 
 /* charts div */
+#charts.close{
+    display: none;
+}
+
+#charts.open{
+    display: flex;
+}
+
 #charts {
     padding: 5px;
     width: 982px;
     height: 600px;
-    display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-}
-#charts > div{
+    flex-wrap: nowrap;}
+
+#charts > div {
     width: 50%;
     height: 100%;
     margin: 1px;

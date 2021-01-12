@@ -249,15 +249,17 @@
         </div>
     </div>
 
-    <div>
-        <div id="graphics" class="open">
-            <div id="mapid"></div>
+
+        <div id="graphics">
+            <div id="map">
+                <div id="mapid"></div>
+            </div>
+            <div id="charts">
+                <div id="chart1"></div>
+                <div id="chart2"></div>
+            </div>
         </div>
-        <div id="charts" class="close">
-            <div id="chart1"></div>
-            <div id="chart2"></div>
-        </div>
-    </div>
+
 </div>
 
 <script type="text/javascript" src="js/script.js"></script>

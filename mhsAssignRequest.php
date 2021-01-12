@@ -1,15 +1,14 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
 
-$helperId="";
-$userId="";
-$status="to do";
+$helperId = "";
+$userId = "";
+$status = "to do";
 
 if (!isset($_POST["helperId"]) or
-    !isset($_POST["userId"])){
+    !isset($_POST["userId"])) {
     echo "fehler";
-}
-else {
+} else {
     $verbindung = include("mhs-db.php");
 
     $helperId = htmlspecialchars($_POST["helperId"]);

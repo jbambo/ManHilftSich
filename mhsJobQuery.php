@@ -12,12 +12,10 @@ if (!isset($_POST["jobId"]) or //check if input is set
     $jobId = htmlspecialchars($_POST["jobId"]);
     $status = htmlspecialchars($_POST["status"]);
 
-
     //db variables
     $verbindung = include("mhs-db.php");
 
-    $query ="UPDATE assignments SET status= '$status' where id ='$jobId'";
-
+    $query = "UPDATE assignments SET status= '$status' where id ='$jobId'";
 
     $result = mysqli_query($verbindung, $query);
 }
