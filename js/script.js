@@ -118,8 +118,10 @@ function showBob(jsonData) {
         table += "<td>" + element.user_id + "</td>";
         table += "<td>" + element.status + "</td></tr>";
     })
-    table += "</body>" // close the table
+    table += "</body>"// close the table
     document.getElementById("helperJobs").innerHTML = table; //fill the table
+    let myId= jsonData[0].helper_id;
+    document.getElementById("myId").value= myId;
 }
 
 //change job status
@@ -140,8 +142,49 @@ function changeJobStatus() {
 
 //show the route for chosen job
 function showTheWay() {
+    let data = $("form").serializeArray();
+    $.ajax({
+        type: "POST",
+        url: "mhsRouting.php",
+        data: data,
+        dataType: "json",
+        timeout: 1000,
+        success: function (jsonData){
+           /* 'start=8.681495,49.41461&' +
+            'end=8.687872,49.420318'*/
+            let start="";
+            let end="";
+            jsonData.forEach(function (element){
+                start+=element.startLong+","+element.startLat;
+                end+=element.endLong+","+element.endLat;
+            });
+            if (routeLayer == null) {
+                routeLayer = L.geoJSON().addTo(map);
+            } else {
+                routeLayer.clearLayers();
+                routeLayer = L.geoJSON().addTo(map);
+            }
+            let request = new XMLHttpRequest();
 
+            request.open('GET', 'https://api.openrouteservice.org/v2/directions/driving-car?' +
+                'api_key=5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2&' +
+                'start='+start+'&' +
+                'end='+end+'');
+                //[long, lat]
+            request.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
+
+            request.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    let geoJson = JSON.parse(this.response)
+                    routeLayer.addData(geoJson);
+                }
+            };
+
+            request.send();
+        }
+    });
 }
+
 
 //function to load when the site has completely loaded, used with <body> tag
 function onloadFunction() {
@@ -333,7 +376,6 @@ function ajaxRunIsoService() {
 
                 request.onreadystatechange = function () {
                     if (this.readyState === 4) {
-                        console.log(this.response);
                         let geoJson = JSON.parse(this.response)
                         isoLayer.addData(geoJson);
                     }
@@ -348,6 +390,7 @@ function ajaxRunIsoService() {
 
 // initialize map variable and marker layer, initialize marker layers, initialize icons,
 var map;
+var routeLayer =null;
 var markerLayerUser = null;
 var isoLayer = null;
 var markerLayerHelper = null;

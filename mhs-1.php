@@ -149,8 +149,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                        </td>
+                        <td></td>
                         <td>
                             <input type="button" value="add user" onclick="ajaxSendHelper()">
                             <input type="button" value="location" onclick="getLocation(1)">
@@ -158,10 +157,8 @@
                         </td>
                     </tr>
                     <tr>
+                        <td></td>
                         <td>
-                        </td>
-                        <td>
-                            <input type="button" value="show route" onclick="showTheWay()">
                             <input type="button" value="LOGIN/LOAD" onclick="loginHelper()">
                             <input type="reset" value="reset">
                         </td>
@@ -169,9 +166,7 @@
 
                 </table>
                 <p id="message"></p>
-            </form>
-            <form id="jobStatus" method="post" action="#" class="close">
-                <table>
+                <table id="jobStatus" class="close">
                     <thead>
                     <tr>
                         <th>Job id</th>
@@ -192,6 +187,13 @@
                         </td>
                         <td>
                             <input type="button" value="change status" onclick="changeJobStatus()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dein ID:</td>
+                        <td><input type="number" name="myId" id="myId" readonly></td>
+                        <td>
+                            <input type="button" value="show route for job?" onclick="showTheWay()">
                         </td>
                     </tr>
                     </tbody>
@@ -250,15 +252,15 @@
     </div>
 
 
-        <div id="graphics">
-            <div id="map">
-                <div id="mapid"></div>
-            </div>
-            <div id="charts">
-                <div id="chart1"></div>
-                <div id="chart2"></div>
-            </div>
+    <div id="graphics">
+        <div id="map">
+            <div id="mapid"></div>
         </div>
+        <div id="charts">
+            <div id="chart1"></div>
+            <div id="chart2"></div>
+        </div>
+    </div>
 
 </div>
 
