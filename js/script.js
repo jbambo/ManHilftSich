@@ -46,21 +46,16 @@ function testAjax() {
 
 function selectRole() {
     let role = document.getElementById("role").value;
-    let mapClass = document.getElementById("map").className;
 
     switch (role) {
         case "helper":
+            document.getElementById("map").className="open";
             document.getElementById("charts").className = "close";
             document.getElementById("registerHelper").className = "open";
             document.getElementById("registerUser").className = "close";
             document.getElementById("bossView").className = "close";
-            if (mapClass == "close") {
-                mapClass = "open";
-            }
             document.getElementById("peasants").classList.remove("open");
             document.getElementById("addressField").className = "close";
-
-
             break;
 
         case"user":
@@ -714,16 +709,12 @@ function showChart() {
         colors: ['#0900ff', '#ff0000', '#ffc200', '#00ffe1'],
         series: [{
             name: 'im Garten',
-            data: [1, 1, 4, 6]
         }, {
             name: 'zu Hause',
-            data: [5, 7, 3, 8]
         }, {
             name: 'beim Einkaufen',
-            data: [5, 7, 3, 8]
         }, {
             name: 'im Hof',
-            data: [5, 7, 3, 12]
         },
         ]
 

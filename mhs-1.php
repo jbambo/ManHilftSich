@@ -24,13 +24,12 @@
 </head>
 <body onload="onloadFunction()">
 
-<div id="menu" class="close">
+<div id="menu" >
     <?php include "mhs-menu.html" ?>
 </div>
 
 <div class="content_max_width">
     <div id="parent">
-
         <form id="selectRole">
             <table>
                 <tr>
@@ -103,7 +102,6 @@
                         </td>
                     </tr>
                 </table>
-                <p id="message"></p>
             </form>
         </div>
         <div id="registerHelper" class="close">
@@ -157,7 +155,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td> <p id="message"></p></td>
                         <td>
                             <input type="button" value="LOGIN/LOAD" onclick="loginHelper()">
                             <input type="reset" value="reset">
@@ -165,7 +163,7 @@
                     </tr>
 
                 </table>
-                <p id="message"></p>
+
                 <table id="jobStatus" class="close">
                     <thead>
                     <tr>
@@ -250,10 +248,8 @@
             <table id="userData"></table>
         </div>
     </div>
-
-
     <div id="graphics">
-        <div id="map">
+        <div id="map" class>
             <div id="mapid"></div>
         </div>
         <div id="charts">

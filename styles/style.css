@@ -121,6 +121,7 @@ html {
 /*map div*/
 
 #mapid {
+    margin-top:10px ;
     width: 982px;
     height: 542px;
     background-color: #999999;
