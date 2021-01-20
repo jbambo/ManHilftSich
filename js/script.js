@@ -449,8 +449,6 @@ function addHelperMarker(jsonData) {
     let helperIcon = L.icon({
         iconUrl: "img/icon_helper.png"
     });
-
-
     jsonData.forEach(function (element) {
         let marker = new L.marker([element.latitude, element.longitude], {
             clickable: true,
@@ -626,26 +624,7 @@ function showChart() {
         timeout: 1000,
         success: function (jsonData) {//pass the json data from query to this function
             console.log(jsonData);
-            /*let cats = ["Garten", "zu Hause", "beim Einkaufen", "im Hof"];
-            let urgencies = ["1", "2", "3", "4"];
-            let vals="";
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 4; j++) {
-                    console.log("checking: " + cats[i] + " and " + urgencies[j])
-                    let currentSum = sumByKey(jsonData, cats[i], urgencies[j]);
-                    console.log(currentSum + "current sum");
-                    vals+=currentSum+",";
-                }
-            }
-            vals= vals.substring(0,vals.length-1);
-            for (let i=0,x=0,y=7;i<4;i++){
-                let arr= new Array(7);
-                arr=vals.substring(x,y);
-               x+=8;
-               y+=8;
 
-            }
-            console.log();*/
             for (let i = 0; i < 4; i++) {
                 options.series[i].data = jsonData[i];
             }
@@ -717,7 +696,6 @@ function showChart() {
             name: 'im Hof',
         },
         ]
-
     };
 
     $.ajax({
@@ -733,6 +711,4 @@ function showChart() {
             Highcharts.chart('chart2', options2);
         }
     });
-
-
 }
