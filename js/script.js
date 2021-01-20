@@ -49,7 +49,7 @@ function selectRole() {
 
     switch (role) {
         case "helper":
-            document.getElementById("map").className="open";
+            document.getElementById("map").className = "open";
             document.getElementById("charts").className = "close";
             document.getElementById("registerHelper").className = "open";
             document.getElementById("registerUser").className = "close";
