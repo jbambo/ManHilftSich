@@ -1,30 +1,13 @@
 //test functions
 
 function testUser(testUserData) {
-    testUserData.forEach(function (element) {
-        let coords = "";
-        // coords+=element.longitude+"%2C"+element.latitude+"|";
-        coords += "[" + element.longitude + "," + element.latitude + "]";
-        //coords+=","
-        //console.log(coords);
-        runIsoService(coords);
-    });
-    //coords= coords.substring(0,coords.length-1);
-    /*    $.ajax({
-            url: "https://api.openrouteservice.org/isochrones?locations=8.34234%2C48.23424|8.34234%2C48.23424&
-            profile=driving-car&range_type=distance&range=10000&location_type=start&intersections=false&api_key=
-            5b3ce3597851110001cf62489c8e89fa393b423ca90a3ace2a38c9f2",
-            data: {},
-            type: "GET",
-            dataType: "json",
-            timeout: 1000,
-            success: function () //pass the json data from query to this function
-        });*/
+    console.log(testUserData);
+
 }
 
 function testAjax() {
     $.ajax({
-        url: "mhsGetHelperDataIso.php",
+        url: "mhsGetHelperData.php",
         data: {},
         type: "GET",
         dataType: "json",
@@ -174,7 +157,6 @@ function showTheWay() {
                     routeLayer.addData(geoJson);
                 }
             };
-
             request.send();
         }
     });
